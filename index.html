@@ -228,62 +228,46 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 28px 72px; }
   border-collapse: collapse;
   margin-bottom: 28px;
 }
-.ledger thead tr { border-bottom: 2px solid var(--ink); }
-.ledger thead th {
-  font-family: var(--mono);
-  font-size: 8.5px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--ink3);
-  font-weight: 400;
-  text-align: left;
-  padding: 0 10px 9px;
+.ledger-hdr {
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 2px solid var(--ink);
+  padding: 0 0 9px;
+  font-family: var(--mono); font-size: 8.5px; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--ink3); font-weight: 400;
 }
-.ledger thead th:first-child { padding-left: 0; }
-.ledger thead th.r { text-align: right; }
-
+.ledger-hdr span { flex: 1; }
+.ledger { border-top: none; }
 .lr {
+  display: flex; align-items: center; gap: 10px;
   border-bottom: 1px solid var(--rule);
-  cursor: pointer;
-  transition: background .1s;
+  cursor: pointer; transition: background .1s; padding: 11px 0;
 }
 .lr:hover { background: var(--ivory2); }
-.lr td { padding: 11px 10px; vertical-align: middle; }
-.lr td:first-child { padding-left: 0; }
-.lr td.r { text-align: right; }
-
-.lr-name-cell { display: flex; align-items: center; gap: 9px; }
+.lr-name-cell { display: flex; align-items: center; gap: 9px; flex: 2; min-width: 0; }
 .lr-ico { width: 26px; height: 26px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
 .lr-name { font-size: 13px; font-weight: 600; color: var(--ink); }
-.lr-chev { font-size: 8px; color: var(--ink3); transition: transform .18s; display: inline-block; margin-left: 5px; }
+.lr-chev { font-size: 8px; color: var(--ink3); transition: transform .18s; display: inline-block; margin-left: 5px; flex-shrink: 0; }
 .lr.open .lr-chev { transform: rotate(90deg); }
-.lr-wt { font-family: var(--mono); font-size: 10.5px; color: var(--ink3); }
-.lr-cnt { font-family: var(--mono); font-size: 10.5px; color: var(--ink3); }
-.lr-pct { font-family: var(--mono); font-size: 12.5px; font-weight: 500; }
-.lr-bar { width: 100px; height: 3px; background: var(--ivory3); flex-shrink: 0; }
+.lr-wt  { font-family: var(--mono); font-size: 10.5px; color: var(--ink3); flex: 1; }
+.lr-cnt { font-family: var(--mono); font-size: 10.5px; color: var(--ink3); flex: 1; }
+.lr-bar-wrap { flex: 1.2; }
+.lr-bar { width: 100%; max-width: 120px; height: 3px; background: var(--ivory3); }
 .lr-bar-f { height: 100%; transition: width .6s ease; }
-
+.lr-pct { font-family: var(--mono); font-size: 12.5px; font-weight: 500; flex: 1; text-align: right; }
 /* sub-rows */
 .sub-group { display: none; }
-.sub-tr td { padding: 0; background: var(--ivory2); }
+.sub-group.open { display: block; }
 .sub-inner {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  display: flex; align-items: center; gap: 10px;
   padding: 7px 10px 7px 46px;
   border-bottom: 1px solid var(--rule);
-  cursor: pointer;
-  transition: background .1s;
+  background: var(--ivory2); cursor: pointer; transition: background .1s;
 }
 .sub-inner:hover { background: var(--ivory3); }
 .sub-box {
-  width: 14px; height: 14px;
-  border: 1.5px solid var(--ink3);
-  flex-shrink: 0;
+  width: 14px; height: 14px; border: 1.5px solid var(--ink3); flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  font-size: 8px; font-weight: 700;
-  transition: all .15s;
-  background: var(--ivory);
+  font-size: 8px; font-weight: 700; transition: all .15s; background: var(--ivory);
 }
 .sub-inner.done .sub-box { background: var(--green); border-color: var(--green); color: #fff; }
 .sub-lbl { font-size: 11.5px; color: var(--ink2); flex: 1; }
@@ -676,18 +660,14 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 28px 72px; }
     </div>
   </div>
 
-  <table class="ledger" id="ledgerTable">
-    <thead>
-      <tr>
-        <th style="width:38%">Topic</th>
-        <th>Exam Weight</th>
-        <th>Readings</th>
-        <th>Progress</th>
-        <th class="r">Done</th>
-      </tr>
-    </thead>
-    <tbody id="ledgerBody"></tbody>
-  </table>
+  <div class="ledger-hdr">
+    <span style="flex:2">Topic</span>
+    <span>Exam Weight</span>
+    <span>Readings</span>
+    <span style="flex:1.2">Progress</span>
+    <span style="text-align:right">Done</span>
+  </div>
+  <div class="ledger" id="ledgerBody"></div>
 </div>
 
 <!-- ═══ FLASHCARDS ═══ -->
@@ -1041,54 +1021,52 @@ document.getElementById('todayDate').textContent =
   new Date().toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'long',year:'numeric'});
 
 function buildLedger(){
-  const tbody = document.getElementById('ledgerBody');
-  const table = document.getElementById('ledgerTable');
-  // Remove old sub-group tbodys
-  table.querySelectorAll('.sub-group').forEach(el=>el.remove());
-  tbody.innerHTML = '';
+  const container = document.getElementById('ledgerBody');
+  container.innerHTML = '';
   TOPICS.forEach(t=>{
     const tot=t.s.length, done=t.s.filter((_,i)=>S.subs[t.id+'_'+i]==='done').length, pct=tot?Math.round(done/tot*100):0;
-    // Topic row
-    const tr = document.createElement('tr');
-    tr.className='lr'; tr.id='lr_'+t.id;
-    tr.innerHTML=`
-      <td><div class="lr-name-cell">
+
+    // Topic row — plain div
+    const row = document.createElement('div');
+    row.className='lr'; row.id='lr_'+t.id;
+    row.innerHTML=`
+      <div class="lr-name-cell">
         <div class="lr-ico" style="background:${t.c}18">${t.e}</div>
         <span class="lr-name">${t.name}</span>
         <span class="lr-chev">▶</span>
-      </div></td>
-      <td><span class="lr-wt">${t.w}</span></td>
-      <td><span class="lr-cnt">${tot} readings</span></td>
-      <td><div style="display:flex;align-items:center;gap:8px">
-        <div class="lr-bar"><div class="lr-bar-f" style="background:${t.c};width:${pct}%"></div></div>
-      </div></td>
-      <td class="r"><span class="lr-pct" style="color:${t.c}">${pct}%</span></td>`;
-    tr.onclick = ()=> toggleTopic(t.id);
-    tbody.appendChild(tr);
-    // Sub-rows — appended to TABLE directly (not nested tbody inside tbody)
-    const sg = document.createElement('tbody');
-    sg.className='sub-group'; sg.id='sg_'+t.id; sg.style.display='none';
+      </div>
+      <span class="lr-wt">${t.w}</span>
+      <span class="lr-cnt">${tot} readings</span>
+      <div class="lr-bar-wrap"><div class="lr-bar"><div class="lr-bar-f" style="background:${t.c};width:${pct}%"></div></div></div>
+      <span class="lr-pct" style="color:${t.c}">${pct}%</span>`;
+    row.addEventListener('click', ()=> toggleTopic(t.id));
+    container.appendChild(row);
+
+    // Sub-rows — plain div, sibling of row inside same container
+    const sg = document.createElement('div');
+    sg.className='sub-group'; sg.id='sg_'+t.id;
     t.s.forEach((s,i)=>{
       const k=t.id+'_'+i, isDone=S.subs[k]==='done';
-      const sr=document.createElement('tr'); sr.className='sub-tr';
-      sr.innerHTML=`<td colspan="5"><div class="sub-inner${isDone?' done':''}" id="si_${k}" onclick="toggleSub('${k}',event)">
-        <div class="sub-box">${isDone?'✓':''}</div>
-        <div class="sub-lbl">${s}</div>
-      </div></td>`;
-      sg.appendChild(sr);
+      const si = document.createElement('div');
+      si.className='sub-inner'+(isDone?' done':'');
+      si.id='si_'+k;
+      si.innerHTML=`<div class="sub-box">${isDone?'✓':''}</div><div class="sub-lbl">${s}</div>`;
+      si.addEventListener('click', (e)=> toggleSub(k, e));
+      sg.appendChild(si);
     });
-    table.appendChild(sg);
+    container.appendChild(sg);
   });
   refreshStats();
   buildTicker();
 }
 
 function toggleTopic(id){
-  const tr=document.getElementById('lr_'+id), sg=document.getElementById('sg_'+id);
-  const wasOpen=tr.classList.contains('open');
+  const row=document.getElementById('lr_'+id);
+  const sg=document.getElementById('sg_'+id);
+  const wasOpen=row.classList.contains('open');
   document.querySelectorAll('.lr.open').forEach(r=>r.classList.remove('open'));
-  document.querySelectorAll('.sub-group').forEach(g=>g.style.display='none');
-  if(!wasOpen){ tr.classList.add('open'); sg.style.display=''; }
+  document.querySelectorAll('.sub-group.open').forEach(g=>g.classList.remove('open'));
+  if(!wasOpen){ row.classList.add('open'); sg.classList.add('open'); }
 }
 
 function toggleSub(key,e){
@@ -1096,11 +1074,12 @@ function toggleSub(key,e){
   const isDone=S.subs[key]==='done';
   S.subs[key]=isDone?'':'done';
   if(!isDone) xp(5);
-  save(); buildLedger();
+  save();
   const tid=key.split('_')[0];
+  buildLedger();
+  // Re-open the topic that was expanded
   document.getElementById('lr_'+tid)?.classList.add('open');
-  const sg=document.getElementById('sg_'+tid);
-  if(sg) sg.style.display='';
+  document.getElementById('sg_'+tid)?.classList.add('open');
 }
 
 function refreshStats(){
