@@ -45,34 +45,6 @@ body {
     repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(26,22,18,.03) 23px, rgba(26,22,18,.03) 24px);
 }
 
-/* ── TICKER ── */
-.ticker-wrap {
-  background: var(--navy);
-  height: 32px;
-  overflow: hidden;
-  border-bottom: 2px solid var(--gold);
-  display: flex;
-  align-items: center;
-}
-.ticker-belt {
-  display: flex;
-  white-space: nowrap;
-  animation: marquee 50s linear infinite;
-}
-@keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
-.t-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0 20px;
-  font-family: var(--mono);
-  font-size: 10.5px;
-  color: rgba(255,255,255,.55);
-  border-right: 1px solid rgba(255,255,255,.08);
-}
-.t-item .t-sym { color: #fff; font-weight: 500; letter-spacing: .5px; }
-.t-item .t-val { color: var(--gold-bd); }
-.t-item .t-chg { color: #6ee7b7; }
 
 /* ── MASTHEAD ── */
 .masthead {
@@ -255,8 +227,8 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 28px 72px; }
 .lr-bar-f { height: 100%; transition: width .6s ease; }
 .lr-pct { font-family: var(--mono); font-size: 12.5px; font-weight: 500; flex: 1; text-align: right; }
 /* sub-rows */
-.sub-group { display: none; }
-.sub-group.open { display: block; }
+.sub-group { max-height: 0; overflow: hidden; transition: max-height 0.32s cubic-bezier(0.4,0,0.2,1); }
+.sub-group.open { max-height: 2000px; }
 .sub-inner {
   display: flex; align-items: center; gap: 10px;
   padding: 7px 10px 7px 46px;
@@ -434,7 +406,6 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 28px 72px; }
 
 /* ── ANALYTICS ── */
 .ana-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px; }
-.ana-span { grid-column: 1/-1; }
 .ana-box { border: 1px solid var(--rule2); overflow: hidden; }
 .ab-head { background: var(--ivory2); border-bottom: 1px solid var(--rule2); padding: 11px 15px; display: flex; align-items: baseline; gap: 7px; }
 .ab-title { font-size: 12px; font-weight: 600; color: var(--ink); }
@@ -504,11 +475,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 28px 72px; }
 .hc-chip.ag { background: var(--red-lt);  color: var(--red);  }
 .hc-chip.hd { background: var(--gold-lt); color: var(--gold); }
 
-.dist-bars { display: flex; align-items: flex-end; gap: 10px; height: 72px; margin-bottom: 8px; }
-.db-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
-.db-bar { width: 100%; min-height: 2px; transition: height .7s ease; }
-.db-lbl { font-family: var(--mono); font-size: 9px; color: var(--ink3); }
-.db-val { font-family: var(--mono); font-size: 10px; font-weight: 500; }
+
 
 /* ── TIMER ── */
 .timer-pair { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--rule2); margin-bottom: 24px; }
@@ -577,7 +544,6 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 28px 72px; }
   .stat-strip { grid-template-columns: repeat(2,1fr); }
   .clock { font-size: 38px; }
   .pg-title { font-size: 22px; }
-  .ticker-wrap { display: none; }
 }
 @media(max-width:480px){
   .mode-rack { grid-template-columns: 1fr; }
@@ -586,11 +552,6 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 28px 72px; }
 </style>
 </head>
 <body>
-
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker-belt" id="tickerBelt"></div>
-</div>
 
 <!-- MASTHEAD -->
 <header class="masthead">
@@ -813,23 +774,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 28px 72px; }
       <div class="ab-head"><div class="ab-title">Untouched Readings</div><div class="ab-sub">— zero engagement · high risk</div></div>
       <div class="ab-body"><div class="hc-list" id="untouchedList"></div></div>
     </div>
-    <div class="ana-box ana-span">
-      <div class="ab-head"><div class="ab-title">Flashcard Recall Distribution</div><div class="ab-sub">— cumulative ratings across all sessions</div></div>
-      <div class="ab-body" style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start">
-        <div style="flex:1;min-width:180px">
-          <div class="dist-bars">
-            <div class="db-col"><div class="db-bar" style="background:var(--red)"   id="dbAg"></div><div class="db-val" id="dvAg" style="color:var(--red)">0</div><div class="db-lbl">Again</div></div>
-            <div class="db-col"><div class="db-bar" style="background:var(--gold)"  id="dbHd"></div><div class="db-val" id="dvHd" style="color:var(--gold)">0</div><div class="db-lbl">Hard</div></div>
-            <div class="db-col"><div class="db-bar" style="background:var(--green)" id="dbGd"></div><div class="db-val" id="dvGd" style="color:var(--green)">0</div><div class="db-lbl">Good</div></div>
-            <div class="db-col"><div class="db-bar" style="background:var(--slate)" id="dbEz"></div><div class="db-val" id="dvEz" style="color:var(--slate)">0</div><div class="db-lbl">Easy</div></div>
-          </div>
-        </div>
-        <div style="flex:2;min-width:200px;font-size:12px;color:var(--ink2);line-height:1.75">
-          <strong style="font-family:var(--mono)">Again + Hard</strong> cards signal gaps in retention — these appear above and should be reviewed daily in your final revision week.<br><br>
-          A passing candidate typically achieves &gt;70% <strong style="font-family:var(--mono)">Good / Easy</strong> ratings. Anything below 50% combined warrants an urgent revisit of the relevant topic.
-        </div>
-      </div>
-    </div>
+
   </div>
 </div>
 
@@ -996,15 +941,7 @@ let S = JSON.parse(localStorage.getItem('cfa_ledger_v3') || 'null') || {
 function save(){ localStorage.setItem('cfa_ledger_v3', JSON.stringify(S)); }
 function xp(n){ S.xp += n; document.getElementById('hXP').textContent = S.xp; save(); }
 
-/* ════ TICKER ════ */
-function buildTicker(){
-  const seg = TOPICS.map(t=>{
-    const tot=t.s.length, done=t.s.filter((_,i)=>S.subs[t.id+'_'+i]==='done').length;
-    const pct=tot?Math.round(done/tot*100):0;
-    return `<div class="t-item"><span class="t-sym">${t.id.toUpperCase()}</span><span class="t-val">${pct}%</span><span class="t-chg">${done}/${tot}</span></div>`;
-  }).join('');
-  document.getElementById('tickerBelt').innerHTML = seg+seg;
-}
+/* ticker removed */
 
 /* ════ NAV ════ */
 const NAV_MAP = {dash:0,flash:1,form:2,mock:3,ana:4,timer:5};
@@ -1057,7 +994,6 @@ function buildLedger(){
     container.appendChild(sg);
   });
   refreshStats();
-  buildTicker();
 }
 
 function toggleTopic(id){
@@ -1334,14 +1270,6 @@ function renderAnalytics(){
         </div>`).join('')
       +(untouched.length>10?`<div style="font-size:10.5px;color:var(--ink3);padding:6px 0;font-family:var(--mono)">...and ${untouched.length-10} more.</div>`:'');
 
-  // Distribution bars
-  const v={again:S.fs.again,hard:S.fs.hard,good:S.fs.good,easy:S.fs.easy};
-  const mx=Math.max(...Object.values(v),1);
-  [['Ag','again'],['Hd','hard'],['Gd','good'],['Ez','easy']].forEach(([k,key])=>{
-    document.getElementById('db'+k).style.height=Math.round(v[key]/mx*68)+'px';
-    document.getElementById('dv'+k).textContent=v[key];
-  });
-}
 
 /* ════ TIMER ════ */
 let pomDur=25*60, pomRem=25*60, pomOn=false, pomTick=null, pomLabel='Focus Block · 25 min';
@@ -1365,23 +1293,28 @@ function setPom(m,l){ pomDur=m*60; pomLabel=l; resetPom(); }
 
 function toggleSess(){
   if(sessOn){
-    clearInterval(sessTick); sessOn=false; document.getElementById('sBtn').textContent='▶ Continue';
+    clearInterval(sessTick); sessOn=false;
+    document.getElementById('sBtn').textContent='▶ Continue';
     const mins=Math.floor(sessSec/60);
-    if(mins>0){
+    if(mins>=1){
       sessLog.push({mins, time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
-      S.studySec+=sessSec; save(); refreshStats(); renderSessLog(); updateLT();
     }
+    S.studySec+=sessSec; sessSec=0; save(); refreshStats(); renderSessLog(); updateLT();
   } else {
-    sessOn=true; sessSec=0; document.getElementById('sBtn').textContent='⏸ Pause';
+    sessOn=true; document.getElementById('sBtn').textContent='⏸ Pause';
     sessTick=setInterval(()=>{
       sessSec++;
       const h=Math.floor(sessSec/3600),m=Math.floor((sessSec%3600)/60),s=sessSec%60;
       document.getElementById('sH').textContent=String(h).padStart(2,'0');
       document.getElementById('sM').textContent=String(m).padStart(2,'0');
       document.getElementById('sS').textContent=String(s).padStart(2,'0');
+      // Update study time live every second
+      const tot=S.studySec+sessSec;
+      const th=Math.floor(tot/3600), tm=Math.floor((tot%3600)/60);
+      document.getElementById('dTime').textContent=th>0?th+'h '+tm+'m':(tm>0?tm+'m':'<1m');
     },1000);
   }
-}
+
 function resetSess(){ clearInterval(sessTick); sessOn=false; sessSec=0; ['sH','sM','sS'].forEach(id=>document.getElementById(id).textContent='00'); document.getElementById('sBtn').textContent='▶ Begin'; }
 function renderSessLog(){
   const sl=document.getElementById('sessLog');
