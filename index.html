@@ -3,1660 +3,1395 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CFA Level I — Study Hub</title>
+<title>The CFA Ledger — Level I</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
-
 :root {
-  --bg:        #f5f4f0;
-  --bg2:       #eeecea;
-  --white:     #ffffff;
-  --border:    #e2dfd9;
-  --border2:   #d0cdc6;
-  --text:      #1a1814;
-  --text2:     #6b6760;
-  --text3:     #a09d98;
-  --accent:    #1a56db;
-  --accent-bg: #eff4ff;
-  --accent-border: #c7d7fc;
-  --green:     #0d7b4f;
-  --green-bg:  #ecfdf5;
-  --green-border: #a7f3d0;
-  --amber:     #92400e;
-  --amber-bg:  #fffbeb;
-  --red:       #991b1b;
-  --red-bg:    #fef2f2;
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow:    0 4px 12px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05);
-  --shadow-lg: 0 12px 32px rgba(0,0,0,0.09), 0 4px 8px rgba(0,0,0,0.05);
-
-  /* topic accent colors */
-  --c-ethics:  #1a56db;
-  --c-quant:   #7c3aed;
-  --c-econ:    #0891b2;
-  --c-fra:     #b45309;
-  --c-corp:    #c2410c;
-  --c-equity:  #be185d;
-  --c-fi:      #0369a1;
-  --c-deriv:   #6d28d9;
-  --c-alt:     #065f46;
-  --c-port:    #92400e;
+  --ivory:    #f7f4ee;
+  --ivory2:   #ede9e0;
+  --ivory3:   #ddd8cc;
+  --navy:     #0d1b2a;
+  --navy2:    #1a3148;
+  --navy3:    #264d70;
+  --gold:     #b8860b;
+  --gold-lt:  #fdf6e3;
+  --gold-bd:  #e8c96a;
+  --green:    #1b5e38;
+  --green-lt: #eaf5ef;
+  --green-bd: #78c49a;
+  --red:      #8b1a1a;
+  --red-lt:   #fdf0f0;
+  --red-bd:   #d9a0a0;
+  --slate:    #3d5a73;
+  --slate-lt: #ecf2f7;
+  --ink:      #1a1612;
+  --ink2:     #524c44;
+  --ink3:     #8c857c;
+  --rule:     rgba(26,22,18,0.1);
+  --rule2:    rgba(26,22,18,0.2);
+  --serif:    'IBM Plex Serif', Georgia, serif;
+  --sans:     'IBM Plex Sans', sans-serif;
+  --mono:     'IBM Plex Mono', 'Courier New', monospace;
 }
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 html { scroll-behavior: smooth; }
-
 body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background: var(--bg);
-  color: var(--text);
+  font-family: var(--sans);
+  background: var(--ivory);
+  color: var(--ink);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(26,22,18,.03) 23px, rgba(26,22,18,.03) 24px);
 }
 
-/* ── HEADER ── */
-header {
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  position: sticky; top: 0; z-index: 200;
-  box-shadow: var(--shadow-sm);
+/* ── TICKER ── */
+.ticker-wrap {
+  background: var(--navy);
+  height: 32px;
+  overflow: hidden;
+  border-bottom: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
 }
-
-.header-inner {
-  max-width: 1280px; margin: 0 auto;
-  padding: 0 32px;
-  height: 60px;
-  display: flex; align-items: center; gap: 32px;
+.ticker-belt {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee 50s linear infinite;
 }
-
-.logo {
-  display: flex; align-items: center; gap: 10px;
-  text-decoration: none; flex-shrink: 0;
+@keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+.t-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 20px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  color: rgba(255,255,255,.55);
+  border-right: 1px solid rgba(255,255,255,.08);
 }
+.t-item .t-sym { color: #fff; font-weight: 500; letter-spacing: .5px; }
+.t-item .t-val { color: var(--gold-bd); }
+.t-item .t-chg { color: #6ee7b7; }
 
-.logo-mark {
-  width: 34px; height: 34px;
-  background: var(--accent);
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 14px; font-weight: 700; color: white;
-  letter-spacing: -0.5px;
+/* ── MASTHEAD ── */
+.masthead {
+  background: var(--ivory);
+  border-bottom: 3px double var(--ink);
+  position: sticky;
+  top: 0;
+  z-index: 400;
 }
-
-.logo-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 17px; font-weight: 600;
-  color: var(--text);
-  letter-spacing: -0.3px;
+.mast-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 28px;
+  height: 54px;
+  display: flex;
+  align-items: center;
 }
-
-.logo-name em { color: var(--accent); font-style: normal; }
-
-nav {
-  display: flex; gap: 2px; flex: 1;
+.brand {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 22px;
+  margin-right: 2px;
+  border-right: 1px solid var(--rule2);
+  flex-shrink: 0;
+  height: 100%;
 }
-
-.nav-btn {
-  padding: 7px 14px;
-  border: none; background: transparent;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 13px; font-weight: 600;
-  color: var(--text2);
-  border-radius: 7px;
+.brand-name {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -.4px;
+  line-height: 1;
+}
+.brand-sub {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  color: var(--ink3);
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  margin-top: 2px;
+}
+.mast-nav { display: flex; flex: 1; }
+.mn {
+  padding: 0 15px;
+  height: 54px;
+  border: none;
+  background: transparent;
+  font-family: var(--sans);
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--ink2);
   cursor: pointer;
-  transition: all 0.15s;
+  border-right: 1px solid var(--rule);
+  border-bottom: 3px solid transparent;
+  display: flex;
+  align-items: center;
+  transition: all .14s;
   white-space: nowrap;
 }
+.mn:first-child { margin-left: 12px; border-left: 1px solid var(--rule); }
+.mn:hover { background: var(--ivory2); color: var(--ink); }
+.mn.on { color: var(--navy); font-weight: 600; border-bottom-color: var(--navy); background: rgba(13,27,42,.04); }
 
-.nav-btn:hover { background: var(--bg); color: var(--text); }
-.nav-btn.active { background: var(--accent-bg); color: var(--accent); }
-
-.header-pills {
-  display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+.mast-stats {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-left: 1px solid var(--rule2);
+  padding-left: 16px;
 }
-
-.pill {
-  display: flex; align-items: center; gap: 5px;
-  padding: 5px 12px;
-  border-radius: 20px;
-  font-size: 12px; font-weight: 700;
-  border: 1px solid;
-}
-
-.pill-xp {
-  background: var(--amber-bg);
-  border-color: #fcd34d;
-  color: var(--amber);
-}
-
-.pill-streak {
-  background: #fff7ed;
-  border-color: #fed7aa;
-  color: #c2410c;
-}
+.ms { display: flex; flex-direction: column; align-items: center; padding: 0 12px; border-right: 1px solid var(--rule); }
+.ms:last-child { border-right: none; }
+.ms-v { font-family: var(--mono); font-size: 16px; font-weight: 500; color: var(--ink); line-height: 1; }
+.ms-l { font-family: var(--mono); font-size: 8px; color: var(--ink3); text-transform: uppercase; letter-spacing: 1.2px; margin-top: 1px; }
 
 /* ── LAYOUT ── */
-main {
-  max-width: 1280px; margin: 0 auto;
-  padding: 32px;
+main { max-width: 1400px; margin: 0 auto; padding: 28px 28px 72px; }
+.view { display: none; animation: snap .18s ease; }
+.view.on { display: block; }
+@keyframes snap { from{opacity:0;transform:translateY(5px)} to{opacity:1;transform:none} }
+
+/* ── PAGE HEAD ── */
+.pg-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 12px;
+  margin-bottom: 24px;
 }
-
-.view { display: none; animation: fadeUp 0.25s ease; }
-.view.active { display: block; }
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: none; }
-}
-
-/* ── PAGE TITLE ── */
-.page-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 28px; font-weight: 700;
-  color: var(--text);
+.pg-eye {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  color: var(--gold);
   margin-bottom: 4px;
-  letter-spacing: -0.5px;
+}
+.pg-title {
+  font-family: var(--serif);
+  font-size: 27px;
+  color: var(--ink);
+  letter-spacing: -.3px;
+  line-height: 1.1;
+}
+.pg-meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--ink3);
 }
 
-.page-sub {
-  font-size: 14px; color: var(--text2); margin-bottom: 28px;
+/* ── RULED LABEL ── */
+.rl {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  color: var(--ink3);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 7px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-/* ── CARDS ── */
-.card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.2s, transform 0.2s;
-}
-
-.card:hover { box-shadow: var(--shadow); }
-
-/* ── STAT GRID ── */
-.stat-grid {
+/* ── STAT STRIP ── */
+.stat-strip {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 32px;
+  border: 1px solid var(--rule2);
+  margin-bottom: 28px;
 }
-
-.stat-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 22px 24px;
-  box-shadow: var(--shadow-sm);
-  position: relative;
-  overflow: hidden;
-}
-
-.stat-card::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  border-radius: 14px 14px 0 0;
-}
-
-.stat-card.s-blue::after  { background: var(--accent); }
-.stat-card.s-green::after { background: var(--green); }
-.stat-card.s-amber::after { background: #d97706; }
-.stat-card.s-violet::after { background: #7c3aed; }
-
-.stat-icon {
-  width: 38px; height: 38px;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-  margin-bottom: 14px;
-}
-
-.s-blue  .stat-icon { background: var(--accent-bg); }
-.s-green .stat-icon { background: var(--green-bg); }
-.s-amber .stat-icon { background: var(--amber-bg); }
-.s-violet .stat-icon { background: #f5f3ff; }
-
-.stat-label {
-  font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.8px;
-  color: var(--text3); margin-bottom: 6px;
-}
-
-.stat-val {
-  font-family: 'Playfair Display', serif;
-  font-size: 32px; font-weight: 700;
-  color: var(--text); line-height: 1;
-  margin-bottom: 6px;
-}
-
-.stat-hint { font-size: 12px; color: var(--text2); }
-
-.progress-bar {
-  width: 100%; height: 5px;
-  background: var(--bg2);
-  border-radius: 99px;
-  overflow: hidden;
-  margin-top: 12px;
-}
-
-.progress-fill {
-  height: 100%;
-  border-radius: 99px;
-  transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
-}
-
-/* ── SECTION HEADER ── */
-.section-hd {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 18px;
-}
-
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px; font-weight: 700;
-  color: var(--text);
-}
-
-/* ── BUTTONS ── */
-.btn {
-  padding: 8px 16px;
-  border-radius: 8px;
-  border: 1px solid var(--border2);
-  background: var(--white);
-  color: var(--text2);
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 12px; font-weight: 700;
-  cursor: pointer;
-  transition: all 0.15s;
-  display: inline-flex; align-items: center; gap: 5px;
-}
-
-.btn:hover { background: var(--bg); border-color: var(--text3); color: var(--text); }
-
-.btn-primary {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #1447c0;
-  border-color: #1447c0;
-  color: white;
-}
-
-.btn-danger {
-  background: var(--red-bg);
-  border-color: #fca5a5;
-  color: var(--red);
-}
-
-/* ── TOPIC CARDS ── */
-.topics-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin-bottom: 32px;
-}
-
-.topic-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.2s;
-}
-
-.topic-card:hover { box-shadow: var(--shadow); }
-
-.topic-header {
-  display: flex; align-items: center; gap: 14px;
+.stat-cell {
   padding: 18px 20px;
+  border-right: 1px solid var(--rule);
+  position: relative;
+}
+.stat-cell:last-child { border-right: none; }
+.sc-lbl { font-family: var(--mono); font-size: 8.5px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--ink3); margin-bottom: 6px; }
+.sc-val { font-family: var(--serif); font-size: 34px; font-weight: 600; color: var(--ink); line-height: 1; margin-bottom: 3px; }
+.sc-sub { font-size: 11px; color: var(--ink2); }
+.sc-prog { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--ivory3); }
+.sc-prog-fill { height: 100%; transition: width .8s cubic-bezier(.4,0,.2,1); }
+
+/* ── LEDGER TABLE ── */
+.ledger {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 28px;
+}
+.ledger thead tr { border-bottom: 2px solid var(--ink); }
+.ledger thead th {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--ink3);
+  font-weight: 400;
+  text-align: left;
+  padding: 0 10px 9px;
+}
+.ledger thead th:first-child { padding-left: 0; }
+.ledger thead th.r { text-align: right; }
+
+.lr {
+  border-bottom: 1px solid var(--rule);
   cursor: pointer;
-  user-select: none;
+  transition: background .1s;
 }
+.lr:hover { background: var(--ivory2); }
+.lr td { padding: 11px 10px; vertical-align: middle; }
+.lr td:first-child { padding-left: 0; }
+.lr td.r { text-align: right; }
 
-.topic-icon-wrap {
-  width: 44px; height: 44px;
-  border-radius: 11px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px;
-  flex-shrink: 0;
-}
+.lr-name-cell { display: flex; align-items: center; gap: 9px; }
+.lr-ico { width: 26px; height: 26px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+.lr-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+.lr-chev { font-size: 8px; color: var(--ink3); transition: transform .18s; display: inline-block; margin-left: 5px; }
+.lr.open .lr-chev { transform: rotate(90deg); }
+.lr-wt { font-family: var(--mono); font-size: 10.5px; color: var(--ink3); }
+.lr-cnt { font-family: var(--mono); font-size: 10.5px; color: var(--ink3); }
+.lr-pct { font-family: var(--mono); font-size: 12.5px; font-weight: 500; }
+.lr-bar { width: 100px; height: 3px; background: var(--ivory3); flex-shrink: 0; }
+.lr-bar-f { height: 100%; transition: width .6s ease; }
 
-.topic-meta { flex: 1; min-width: 0; }
-
-.topic-name {
-  font-size: 14px; font-weight: 700; color: var(--text);
-  margin-bottom: 3px;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-
-.topic-weight {
-  font-size: 11px; font-weight: 600; color: var(--text3);
-  text-transform: uppercase; letter-spacing: 0.7px;
-}
-
-.topic-right {
-  display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
-  flex-shrink: 0;
-}
-
-.topic-pct {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 14px; font-weight: 500;
-}
-
-.chevron {
-  font-size: 11px; color: var(--text3);
-  transition: transform 0.2s;
-}
-
-.topic-card.open .chevron { transform: rotate(180deg); }
-
-.topic-progress-row {
-  padding: 0 20px 14px;
-  display: flex; align-items: center; gap: 10px;
-}
-
-.topic-progress-row .progress-bar { flex: 1; }
-.topic-count { font-size: 11px; color: var(--text3); font-family: 'JetBrains Mono', monospace; white-space: nowrap; }
-
-/* subtopics */
-.subtopic-list {
-  display: none;
-  border-top: 1px solid var(--bg2);
-  padding: 10px 14px 14px;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.topic-card.open .subtopic-list { display: flex; }
-
-.subtopic-row {
-  display: flex; align-items: center; gap: 10px;
-  padding: 8px 10px;
-  border-radius: 8px;
+/* sub-rows */
+.sub-group { display: none; }
+.sub-tr td { padding: 0; background: var(--ivory2); }
+.sub-inner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 10px 7px 46px;
+  border-bottom: 1px solid var(--rule);
   cursor: pointer;
-  transition: background 0.12s;
+  transition: background .1s;
 }
-
-.subtopic-row:hover { background: var(--bg); }
-
-.check-box {
-  width: 18px; height: 18px;
-  border-radius: 5px;
-  border: 1.5px solid var(--border2);
-  display: flex; align-items: center; justify-content: center;
+.sub-inner:hover { background: var(--ivory3); }
+.sub-box {
+  width: 14px; height: 14px;
+  border: 1.5px solid var(--ink3);
   flex-shrink: 0;
-  background: var(--white);
-  transition: all 0.15s;
-  font-size: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 8px; font-weight: 700;
+  transition: all .15s;
+  background: var(--ivory);
 }
+.sub-inner.done .sub-box { background: var(--green); border-color: var(--green); color: #fff; }
+.sub-lbl { font-size: 11.5px; color: var(--ink2); flex: 1; }
+.sub-inner.done .sub-lbl { color: var(--ink); }
 
-.subtopic-row.done .check-box {
-  background: var(--green);
-  border-color: var(--green);
-  color: white;
-}
-
-.sub-name {
-  font-size: 13px; font-weight: 500; color: var(--text2);
-  flex: 1;
-}
-
-.subtopic-row.done .sub-name { color: var(--text); }
-
-/* ── FLASHCARDS ── */
-.flash-layout {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 24px;
-  align-items: start;
-}
-
-.flash-sidebar {
-  position: sticky; top: 80px;
-}
-
-.flash-sidebar .card { padding: 20px; }
-
-.filter-list {
-  display: flex; flex-direction: column; gap: 3px;
-}
-
-.filter-item {
+/* ── FLASH ── */
+.flash-grid { display: grid; grid-template-columns: 190px 1fr; gap: 24px; align-items: start; }
+.flash-side { position: sticky; top: 62px; }
+.side-box { border: 1px solid var(--rule2); overflow: hidden; }
+.side-hd { background: var(--navy); padding: 9px 13px; font-family: var(--mono); font-size: 8.5px; text-transform: uppercase; letter-spacing: 1.5px; color: rgba(255,255,255,.5); }
+.flt-btn {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 8px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 13px; font-weight: 600; color: var(--text2);
-  border: 1px solid transparent;
-  transition: all 0.15s;
+  padding: 8px 13px;
+  border-bottom: 1px solid var(--rule);
+  font-size: 11.5px; color: var(--ink2); font-weight: 500;
+  cursor: pointer; transition: background .1s;
 }
+.flt-btn:last-child { border-bottom: none; }
+.flt-btn:hover { background: var(--ivory2); }
+.flt-btn.on { background: var(--gold-lt); color: var(--gold); font-weight: 600; }
+.flt-n { font-family: var(--mono); font-size: 9.5px; color: var(--ink3); background: var(--ivory3); padding: 1px 5px; }
+.flt-btn.on .flt-n { background: var(--gold-bd); color: var(--gold); }
 
-.filter-item:hover { background: var(--bg); color: var(--text); }
+.flash-main { display: flex; flex-direction: column; gap: 12px; }
+.recall-bar { display: flex; border: 1px solid var(--rule2); }
+.rc-seg { flex: 1; padding: 9px 0; text-align: center; border-right: 1px solid var(--rule); font-size: 10.5px; color: var(--ink2); font-weight: 500; }
+.rc-seg:last-child { border-right: none; }
+.rc-seg span { display: block; font-family: var(--mono); font-size: 20px; font-weight: 500; line-height: 1.1; margin-bottom: 2px; }
+.rc-seg.ag span { color: var(--red); }
+.rc-seg.hd span { color: var(--gold); }
+.rc-seg.gd span { color: var(--green); }
+.rc-seg.ez span { color: var(--slate); }
 
-.filter-item.active {
-  background: var(--accent-bg);
-  color: var(--accent);
-  border-color: var(--accent-border);
-}
-
-.filter-count {
-  font-size: 11px; font-weight: 700;
-  background: var(--bg2);
-  color: var(--text3);
-  padding: 2px 7px;
-  border-radius: 99px;
-}
-
-.filter-item.active .filter-count {
-  background: var(--accent-bg);
-  color: var(--accent);
-}
-
-.flash-main { display: flex; flex-direction: column; gap: 20px; }
-
-/* card flip */
-.card-wrap {
-  perspective: 1400px;
-  width: 100%; height: 300px;
-}
-
-.card-inner {
+.card-ctr { font-family: var(--mono); font-size: 10.5px; color: var(--ink3); text-align: center; }
+.card-stage { perspective: 1100px; height: 270px; }
+.card-pivot {
   width: 100%; height: 100%;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.55s cubic-bezier(0.34,1.3,0.64,1);
   cursor: pointer;
+  transition: transform .5s cubic-bezier(.34,1.15,.64,1);
 }
-
-.card-inner.flipped { transform: rotateY(180deg); }
-
-.card-face {
+.card-pivot.flipped { transform: rotateY(180deg); }
+.card-side {
   position: absolute; inset: 0;
   backface-visibility: hidden;
-  border-radius: 16px;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
-  padding: 36px;
-  text-align: center;
+  padding: 34px; text-align: center;
+  border: 1px solid var(--rule2);
 }
-
-.card-front {
-  background: var(--white);
-  border: 1.5px solid var(--border);
-  box-shadow: var(--shadow);
+.side-q {
+  background: var(--ivory);
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(26,22,18,.04) 23px, rgba(26,22,18,.04) 24px);
 }
+.side-a { background: var(--navy); transform: rotateY(180deg); border-color: var(--navy2); }
+.c-tag { position: absolute; top: 13px; left: 14px; font-family: var(--mono); font-size: 8.5px; text-transform: uppercase; letter-spacing: 1px; padding: 2px 7px; color: #fff; }
+.c-hint { position: absolute; bottom: 11px; font-family: var(--mono); font-size: 9.5px; color: var(--ink3); letter-spacing: .3px; }
+.side-a .c-hint { color: rgba(255,255,255,.28); }
+.c-q { font-family: var(--serif); font-size: 18px; font-style: italic; color: var(--ink); line-height: 1.6; }
+.c-a { font-size: 13px; color: rgba(255,255,255,.82); line-height: 1.75; }
+.c-a strong { color: var(--gold-bd); font-weight: 600; font-style: normal; }
 
-.card-back {
-  background: linear-gradient(145deg, #f8faff, #eff4ff);
-  border: 1.5px solid var(--accent-border);
-  box-shadow: var(--shadow);
-  transform: rotateY(180deg);
-}
+.card-foot { display: flex; align-items: center; gap: 9px; }
+.arr-btn { width: 32px; height: 32px; border: 1px solid var(--rule2); background: var(--ivory); color: var(--ink2); cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: all .12s; flex-shrink: 0; }
+.arr-btn:hover { background: var(--ivory2); color: var(--ink); }
+.rate-row { display: none; gap: 7px; flex: 1; }
+.rate-row.on { display: flex; }
+.r-btn { flex: 1; padding: 8px 3px; border: 1px solid; font-family: var(--sans); font-size: 11px; font-weight: 600; cursor: pointer; transition: all .12s; }
+.r-ag  { background: var(--red-lt);   border-color: var(--red-bd);   color: var(--red);   }
+.r-hd  { background: var(--gold-lt);  border-color: var(--gold-bd);  color: var(--gold);  }
+.r-gd  { background: var(--green-lt); border-color: var(--green-bd); color: var(--green); }
+.r-ez  { background: var(--slate-lt); border-color: #a8c4d8;         color: var(--slate); }
+.r-btn:hover { filter: brightness(.96); transform: translateY(-1px); }
 
-.card-badge {
-  position: absolute; top: 18px; left: 20px;
-  font-size: 10px; font-weight: 800;
-  text-transform: uppercase; letter-spacing: 1px;
-  padding: 4px 10px; border-radius: 99px; color: white;
-}
-
-.card-flip-hint {
-  position: absolute; bottom: 16px;
-  font-size: 11px; color: var(--text3);
-  display: flex; align-items: center; gap: 4px;
-}
-
-.card-q {
-  font-family: 'Playfair Display', serif;
-  font-size: 20px; font-weight: 600;
-  color: var(--text);
-  line-height: 1.5;
-}
-
-.card-a {
-  font-size: 14px; line-height: 1.75;
-  color: var(--text2);
-}
-
-.card-a strong { color: var(--accent); font-weight: 700; }
-
-.flash-nav {
-  display: flex; align-items: center; justify-content: space-between;
-}
-
-.flash-counter {
-  font-size: 13px; color: var(--text3);
-  font-family: 'JetBrains Mono', monospace;
-}
-
-.icon-btn {
-  width: 38px; height: 38px;
-  border-radius: 9px;
-  border: 1px solid var(--border2);
-  background: var(--white);
-  color: var(--text2);
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px;
-  transition: all 0.15s;
-  box-shadow: var(--shadow-sm);
-}
-
-.icon-btn:hover { background: var(--bg); border-color: var(--text3); color: var(--text); }
-
-.rate-row {
-  display: none; gap: 10px;
-}
-
-.rate-row.show { display: flex; }
-
-.rate-btn {
-  flex: 1; padding: 10px;
-  border-radius: 9px; border: 1.5px solid;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 12px; font-weight: 700;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.r-again  { background: var(--red-bg);   border-color: #fca5a5; color: var(--red); }
-.r-hard   { background: var(--amber-bg); border-color: #fcd34d; color: var(--amber); }
-.r-good   { background: var(--green-bg); border-color: var(--green-border); color: var(--green); }
-.r-easy   { background: var(--accent-bg); border-color: var(--accent-border); color: var(--accent); }
-
-.rate-btn:hover { filter: brightness(0.96); transform: translateY(-1px); }
-
-.flash-stats-row {
-  display: flex; gap: 16px;
-  padding: 14px 18px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  box-shadow: var(--shadow-sm);
-}
-
-.flash-stat {
-  display: flex; align-items: center; gap: 6px;
-  font-size: 12px; color: var(--text2); font-weight: 600;
-}
-
-.dot {
-  width: 8px; height: 8px; border-radius: 99px;
-}
-
-/* ── FORMULAS ── */
-.formula-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.formula-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 20px;
-  box-shadow: var(--shadow-sm);
-  transition: box-shadow 0.2s;
-}
-
-.formula-card:hover { box-shadow: var(--shadow); }
-
-.formula-tag {
-  display: inline-flex; align-items: center;
-  padding: 3px 10px;
-  border-radius: 99px;
-  font-size: 10px; font-weight: 800;
-  text-transform: uppercase; letter-spacing: 0.8px;
-  color: white;
-  margin-bottom: 12px;
-}
-
-.formula-name {
-  font-size: 14px; font-weight: 700; color: var(--text);
-  margin-bottom: 12px;
-  line-height: 1.3;
-}
-
-.formula-expr {
-  background: #f8f9fa;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 12px 14px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  color: #1a56db;
-  line-height: 1.7;
-  white-space: pre-wrap;
-}
-
-.formula-note {
-  font-size: 12px; color: var(--text3);
-  margin-top: 10px; line-height: 1.5;
-  border-top: 1px solid var(--bg2);
-  padding-top: 10px;
-}
+/* ── FORMULARY ── */
+.fm-grid { display: grid; grid-template-columns: repeat(3,1fr); border: 1px solid var(--rule2); }
+.fm-cell { padding: 17px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); transition: background .13s; }
+.fm-cell:hover { background: var(--ivory2); }
+.fm-cell:nth-child(3n) { border-right: none; }
+.fm-chip { font-family: var(--mono); font-size: 8px; text-transform: uppercase; letter-spacing: 1px; padding: 2px 6px; color: #fff; display: inline-block; margin-bottom: 9px; }
+.fm-name { font-size: 12.5px; font-weight: 600; color: var(--ink); margin-bottom: 9px; line-height: 1.3; }
+.fm-body { font-family: var(--mono); font-size: 11.5px; color: var(--navy2); background: var(--ivory2); border-left: 3px solid var(--navy2); padding: 9px 11px; line-height: 1.75; white-space: pre-wrap; }
+.fm-note { font-size: 11px; color: var(--ink3); margin-top: 7px; line-height: 1.45; }
 
 /* ── PRACTICE ── */
-.mode-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-bottom: 24px;
+.mode-rack { display: grid; grid-template-columns: repeat(3,1fr); border: 1px solid var(--rule2); margin-bottom: 18px; }
+.mode-card { padding: 18px; border-right: 1px solid var(--rule); cursor: pointer; transition: background .12s; border-bottom: 3px solid transparent; }
+.mode-card:last-child { border-right: none; }
+.mode-card:hover { background: var(--ivory2); }
+.mode-card.sel { background: var(--gold-lt); border-bottom-color: var(--gold); }
+.mode-ico { font-size: 20px; margin-bottom: 7px; }
+.mode-t { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+.mode-d { font-size: 10.5px; color: var(--ink3); }
+
+.begin-btn {
+  width: 100%; padding: 13px;
+  background: var(--navy); border: none;
+  color: #fff;
+  font-family: var(--sans); font-size: 13.5px; font-weight: 600;
+  cursor: pointer; transition: all .14s; letter-spacing: .3px;
+  border-bottom: 3px solid var(--gold);
 }
+.begin-btn:hover { background: var(--navy2); transform: translateY(-1px); }
 
-.mode-card {
-  background: var(--white);
-  border: 2px solid var(--border);
-  border-radius: 14px;
-  padding: 22px;
-  cursor: pointer;
-  transition: all 0.15s;
-  text-align: center;
+.q-prog { display: flex; align-items: center; gap: 11px; margin-bottom: 14px; }
+.q-lbl { font-family: var(--mono); font-size: 10.5px; color: var(--ink3); white-space: nowrap; }
+.prog-track { flex: 1; height: 2px; background: var(--ivory3); }
+.prog-fill { height: 100%; transition: width .5s ease; }
+
+.q-card {
+  background: var(--ivory);
+  border: 1px solid var(--rule2);
+  padding: 22px 24px;
+  margin-bottom: 12px;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(26,22,18,.035) 23px, rgba(26,22,18,.035) 24px);
 }
-
-.mode-card:hover { border-color: var(--accent); box-shadow: var(--shadow); }
-
-.mode-card.sel {
-  border-color: var(--accent);
-  background: var(--accent-bg);
-  box-shadow: 0 0 0 4px rgba(26,86,219,0.06);
-}
-
-.mode-icon { font-size: 26px; margin-bottom: 10px; }
-.mode-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-.mode-desc { font-size: 12px; color: var(--text3); }
-
-.start-btn {
-  width: 100%; padding: 15px;
-  background: var(--accent);
-  border: none; border-radius: 12px;
-  color: white;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 15px; font-weight: 800;
-  cursor: pointer;
-  transition: all 0.15s;
-  letter-spacing: 0.2px;
-  box-shadow: 0 4px 12px rgba(26,86,219,0.25);
-}
-
-.start-btn:hover {
-  background: #1447c0;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(26,86,219,0.3);
-}
-
-/* question ui */
-.q-header {
-  display: flex; align-items: center; gap: 14px;
-  margin-bottom: 20px;
-}
-
-.q-num-badge {
-  font-size: 12px; font-weight: 700; color: var(--text2);
-  background: var(--bg2);
-  padding: 4px 12px; border-radius: 99px;
-  white-space: nowrap;
-}
-
-.q-score-badge {
-  font-size: 12px; font-weight: 700;
-  color: var(--accent);
-  background: var(--accent-bg);
-  padding: 4px 12px; border-radius: 99px;
-  white-space: nowrap;
-  margin-left: auto;
-}
-
-.question-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 28px;
-  box-shadow: var(--shadow-sm);
-  margin-bottom: 16px;
-}
-
-.q-topic-tag {
-  display: inline-block;
-  font-size: 10px; font-weight: 800;
-  text-transform: uppercase; letter-spacing: 0.8px;
-  color: white;
-  padding: 3px 10px; border-radius: 99px;
-  margin-bottom: 14px;
-}
-
-.q-text {
-  font-size: 15px; font-weight: 500;
-  color: var(--text); line-height: 1.75;
-  margin-bottom: 22px;
-}
-
-.opts { display: flex; flex-direction: column; gap: 8px; }
-
+.q-chip { font-family: var(--mono); font-size: 8px; text-transform: uppercase; letter-spacing: 1px; padding: 2px 7px; color: #fff; display: inline-block; margin-bottom: 11px; }
+.q-text { font-family: var(--serif); font-size: 14.5px; font-style: italic; color: var(--ink); line-height: 1.75; margin-bottom: 18px; }
+.opts { display: flex; flex-direction: column; gap: 5px; }
 .opt {
-  display: flex; align-items: flex-start; gap: 12px;
-  padding: 13px 16px;
-  border-radius: 10px;
-  border: 1.5px solid var(--border);
-  cursor: pointer;
-  transition: all 0.12s;
-  background: var(--white);
+  display: flex; align-items: flex-start; gap: 9px;
+  padding: 10px 12px; border: 1px solid var(--rule);
+  cursor: pointer; transition: all .1s; background: var(--ivory);
 }
-
-.opt:hover { border-color: var(--accent); background: var(--accent-bg); }
-.opt.sel { border-color: var(--accent); background: var(--accent-bg); }
-.opt.correct { border-color: var(--green); background: var(--green-bg); }
-.opt.wrong { border-color: #f87171; background: var(--red-bg); }
-
-.opt-ltr {
-  width: 24px; height: 24px; flex-shrink: 0;
-  border-radius: 6px;
-  background: var(--bg2);
+.opt:hover { border-color: var(--navy2); background: var(--ivory2); }
+.opt.sel  { border-color: var(--navy);  background: rgba(13,27,42,.04); }
+.opt.ok   { border-color: var(--green); background: var(--green-lt); }
+.opt.bad  { border-color: var(--red);   background: var(--red-lt); }
+.o-ltr {
+  width: 19px; height: 19px;
+  background: var(--ivory2); flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 800; color: var(--text2);
-  font-family: 'JetBrains Mono', monospace;
-  transition: all 0.12s;
+  font-family: var(--mono); font-size: 9.5px; font-weight: 500; color: var(--ink2);
+  transition: all .1s;
 }
+.opt.sel .o-ltr { background: var(--navy); color: #fff; }
+.opt.ok  .o-ltr { background: var(--green); color: #fff; }
+.opt.bad .o-ltr { background: var(--red); color: #fff; }
+.o-txt { font-size: 12.5px; color: var(--ink2); line-height: 1.5; }
+.opt.sel .o-txt, .opt.ok .o-txt { color: var(--ink); }
+.exp { display: none; background: var(--green-lt); border-left: 3px solid var(--green); padding: 11px 13px; margin-top: 10px; font-size: 12px; line-height: 1.7; color: var(--ink2); }
+.exp.on { display: block; }
+.exp strong { color: var(--green); }
+.q-foot { display: flex; justify-content: space-between; align-items: center; }
 
-.opt.sel .opt-ltr { background: var(--accent); color: white; }
-.opt.correct .opt-ltr { background: var(--green); color: white; }
-.opt.wrong .opt-ltr { background: #ef4444; color: white; }
+.btn { padding: 6px 13px; border: 1px solid var(--rule2); background: var(--ivory); color: var(--ink2); font-family: var(--sans); font-size: 11.5px; font-weight: 500; cursor: pointer; transition: all .12s; }
+.btn:hover { background: var(--ivory2); color: var(--ink); }
+.btn-p { background: var(--navy); border-color: var(--navy); color: #fff; }
+.btn-p:hover { background: var(--navy2); color: #fff; }
+.btn-d { background: var(--red-lt); border-color: var(--red-bd); color: var(--red); }
 
-.opt-txt { font-size: 14px; color: var(--text2); line-height: 1.5; }
-.opt.sel .opt-txt, .opt.correct .opt-txt { color: var(--text); }
+.result-wrap { border: 1px solid var(--rule2); overflow: hidden; }
+.result-hd { background: var(--navy); padding: 28px; text-align: center; border-bottom: 3px solid var(--gold); }
+.res-ico { font-size: 38px; margin-bottom: 10px; }
+.res-title { font-family: var(--serif); font-size: 24px; color: #fff; margin-bottom: 5px; }
+.res-sub { font-size: 12.5px; color: rgba(255,255,255,.55); }
+.result-nums { display: flex; background: var(--ivory); }
+.rn { flex: 1; padding: 18px; text-align: center; border-right: 1px solid var(--rule); }
+.rn:last-child { border-right: none; }
+.rn-l { font-family: var(--mono); font-size: 8px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--ink3); margin-bottom: 5px; }
+.rn-v { font-family: var(--serif); font-size: 26px; font-weight: 600; }
+.result-foot { padding: 18px; background: var(--ivory2); text-align: center; }
 
-.explanation {
-  display: none;
-  background: #f0fdf4;
-  border: 1px solid var(--green-border);
-  border-radius: 10px;
-  padding: 14px 16px;
-  margin-top: 14px;
-  font-size: 13px; line-height: 1.7; color: #374151;
+/* ── ANALYTICS ── */
+.ana-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px; }
+.ana-span { grid-column: 1/-1; }
+.ana-box { border: 1px solid var(--rule2); overflow: hidden; }
+.ab-head { background: var(--ivory2); border-bottom: 1px solid var(--rule2); padding: 11px 15px; display: flex; align-items: baseline; gap: 7px; }
+.ab-title { font-size: 12px; font-weight: 600; color: var(--ink); }
+.ab-sub { font-size: 10.5px; color: var(--ink3); }
+.ab-body { padding: 15px; }
+
+.readiness-banner {
+  background: var(--navy);
+  border-left: 5px solid var(--gold);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 24px 28px;
+  gap: 20px;
+  margin-bottom: 18px;
 }
+.rb-left {}
+.rb-eye { font-family: var(--mono); font-size: 8.5px; text-transform: uppercase; letter-spacing: 1.8px; color: var(--gold-bd); margin-bottom: 6px; }
+.rb-title { font-family: var(--serif); font-size: 21px; color: #fff; margin-bottom: 4px; }
+.rb-desc { font-size: 11.5px; color: rgba(255,255,255,.5); }
+.rb-right { display: flex; }
+.rb-stat { padding: 12px 18px; border-left: 1px solid rgba(255,255,255,.1); text-align: center; }
+.rb-stat:first-child { border-left: none; }
+.rb-v { font-family: var(--mono); font-size: 20px; font-weight: 500; color: #fff; line-height: 1; }
+.rb-l { font-size: 9px; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: .8px; margin-top: 3px; }
 
-.explanation.show { display: block; }
-.explanation strong { color: var(--green); }
-
-.q-footer {
-  display: flex; justify-content: space-between; align-items: center;
+.attention-list { display: flex; flex-direction: column; }
+.attn-row {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 13px 15px; border-bottom: 1px solid var(--rule);
+  transition: background .1s;
 }
+.attn-row:hover { background: var(--ivory2); }
+.attn-row:last-child { border-bottom: none; }
+.attn-ico { width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+.attn-ico.urg { background: var(--red-lt); }
+.attn-ico.wrn { background: var(--gold-lt); }
+.attn-ico.ok  { background: var(--green-lt); }
+.attn-body {}
+.attn-title { font-size: 12.5px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+.attn-desc  { font-size: 11.5px; color: var(--ink2); line-height: 1.5; }
+.attn-chip  { font-family: var(--mono); font-size: 8.5px; text-transform: uppercase; letter-spacing: .8px; padding: 2px 6px; margin-top: 4px; display: inline-block; }
+.attn-chip.r { background: var(--red-lt);  color: var(--red);  }
+.attn-chip.a { background: var(--gold-lt); color: var(--gold); }
+.attn-chip.b { background: rgba(13,27,42,.06); color: var(--navy); }
 
-/* results */
-.results-card {
-  text-align: center;
-  padding: 56px 32px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  box-shadow: var(--shadow);
-}
+.topic-bars { display: flex; flex-direction: column; gap: 8px; }
+.tb-row { display: flex; align-items: center; gap: 9px; }
+.tb-lbl { font-size: 11px; font-weight: 500; color: var(--ink2); width: 130px; flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tb-track { flex: 1; height: 5px; background: var(--ivory3); }
+.tb-fill  { height: 100%; transition: width .8s ease; }
+.tb-pct   { font-family: var(--mono); font-size: 9.5px; color: var(--ink3); width: 28px; text-align: right; flex-shrink: 0; }
 
-.results-emoji { font-size: 52px; margin-bottom: 16px; }
+.score-tbl { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+.score-tbl tr { border-bottom: 1px solid var(--rule); }
+.score-tbl tr:last-child { border-bottom: none; }
+.score-tbl td { padding: 7px 0; }
+.score-tbl td:first-child { color: var(--ink2); font-weight: 500; }
+.score-tbl td:last-child { text-align: right; font-family: var(--mono); font-weight: 500; }
 
-.results-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 30px; font-weight: 700;
-  color: var(--text); margin-bottom: 8px;
-}
+.hc-list { display: flex; flex-direction: column; }
+.hc-row { display: flex; align-items: center; gap: 9px; padding: 9px 0; border-bottom: 1px solid var(--rule); }
+.hc-row:last-child { border-bottom: none; }
+.hc-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.hc-text { font-size: 11.5px; color: var(--ink2); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hc-chip { font-family: var(--mono); font-size: 8px; text-transform: uppercase; letter-spacing: .8px; padding: 2px 6px; white-space: nowrap; flex-shrink: 0; }
+.hc-chip.ag { background: var(--red-lt);  color: var(--red);  }
+.hc-chip.hd { background: var(--gold-lt); color: var(--gold); }
 
-.results-sub { font-size: 15px; color: var(--text2); margin-bottom: 36px; }
-
-.results-nums {
-  display: flex; gap: 20px; justify-content: center;
-  margin-bottom: 36px; flex-wrap: wrap;
-}
-
-.result-num {
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 18px 28px; text-align: center;
-  min-width: 120px;
-}
-
-.result-num-label { font-size: 11px; font-weight: 700; color: var(--text3); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 6px; }
-.result-num-val { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; }
+.dist-bars { display: flex; align-items: flex-end; gap: 10px; height: 72px; margin-bottom: 8px; }
+.db-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.db-bar { width: 100%; min-height: 2px; transition: height .7s ease; }
+.db-lbl { font-family: var(--mono); font-size: 9px; color: var(--ink3); }
+.db-val { font-family: var(--mono); font-size: 10px; font-weight: 500; }
 
 /* ── TIMER ── */
-.timer-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 28px;
+.timer-pair { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--rule2); margin-bottom: 24px; }
+.timer-cell { padding: 26px; border-right: 1px solid var(--rule2); }
+.timer-cell:last-child { border-right: none; }
+.tc-lbl { font-family: var(--mono); font-size: 8.5px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--ink3); margin-bottom: 14px; }
+.clock { font-family: var(--mono); font-size: 48px; font-weight: 500; color: var(--ink); line-height: 1; letter-spacing: -2px; margin-bottom: 5px; }
+.clock .ac { color: var(--gold); }
+.tc-sub { font-size: 11.5px; color: var(--ink2); margin-bottom: 16px; }
+.tc-btns { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 11px; }
+.presets { display: flex; gap: 5px; flex-wrap: wrap; }
+.preset {
+  padding: 3px 9px; border: 1px solid var(--rule2); background: var(--ivory);
+  font-family: var(--mono); font-size: 9.5px; color: var(--ink2);
+  cursor: pointer; transition: all .13s;
 }
+.preset:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-lt); }
 
-.timer-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: var(--shadow-sm);
-}
+.sess-log { display: flex; flex-direction: column; border: 1px solid var(--rule2); overflow: hidden; }
+.sess-row { display: flex; align-items: center; gap: 11px; padding: 10px 13px; border-bottom: 1px solid var(--rule); background: var(--ivory); transition: background .1s; }
+.sess-row:last-child { border-bottom: none; }
+.sess-row:hover { background: var(--ivory2); }
+.sess-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+.sess-name { font-size: 12.5px; font-weight: 500; color: var(--ink); }
+.sess-time { font-family: var(--mono); font-size: 10.5px; color: var(--ink3); }
+.sess-xp   { font-family: var(--mono); font-size: 10.5px; font-weight: 500; color: var(--gold); margin-left: auto; }
 
-.timer-card-title {
-  font-size: 11px; font-weight: 800;
-  text-transform: uppercase; letter-spacing: 1px;
-  color: var(--text3); margin-bottom: 20px;
-}
-
-.timer-display {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 56px; font-weight: 500;
-  color: var(--text); line-height: 1;
-  letter-spacing: -2px;
-  margin-bottom: 8px;
-}
-
-.timer-display .t-accent { color: var(--accent); }
-.timer-sub { font-size: 13px; color: var(--text2); margin-bottom: 24px; }
-
-.timer-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
-
-.pom-presets { display: flex; gap: 6px; flex-wrap: wrap; }
-
-.preset-btn {
-  padding: 5px 12px;
-  border-radius: 99px;
-  border: 1px solid var(--border2);
-  background: var(--bg);
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 11px; font-weight: 700; color: var(--text2);
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.preset-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
-
-.session-log { display: flex; flex-direction: column; gap: 8px; }
-
-.log-item {
-  display: flex; align-items: center; gap: 14px;
-  padding: 12px 16px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  box-shadow: var(--shadow-sm);
-}
-
-.log-icon {
-  width: 36px; height: 36px;
-  border-radius: 9px;
-  background: var(--accent-bg);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 16px;
-}
-
-.log-text { flex: 1; }
-.log-name { font-size: 13px; font-weight: 600; color: var(--text); }
-.log-time { font-size: 11px; color: var(--text3); }
-.log-xp { font-size: 12px; font-weight: 800; color: #d97706; }
-
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--bg2); }
-::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: var(--text3); }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 1024px) {
-  .formula-grid { grid-template-columns: 1fr 1fr; }
-  .stat-grid { grid-template-columns: 1fr 1fr; }
-  .flash-layout { grid-template-columns: 1fr; }
-  .flash-sidebar { position: static; }
-  .filter-list { flex-direction: row; flex-wrap: wrap; }
-}
-
-@media (max-width: 768px) {
-  .header-inner { padding: 0 16px; gap: 12px; }
-  main { padding: 16px; }
-  nav { display: none; }
-  .topics-grid { grid-template-columns: 1fr; }
-  .formula-grid { grid-template-columns: 1fr; }
-  .mode-grid { grid-template-columns: 1fr 1fr; }
-  .timer-grid { grid-template-columns: 1fr; }
-  .timer-display { font-size: 42px; }
-  .stat-grid { grid-template-columns: 1fr 1fr; }
-  .page-title { font-size: 22px; }
-}
-
-@media (max-width: 480px) {
-  .mode-grid { grid-template-columns: 1fr; }
-  .stat-grid { grid-template-columns: 1fr; }
-  .results-nums { flex-direction: column; align-items: center; }
-}
-
-/* Mobile nav */
-.mobile-nav {
+/* ── MOBILE ── */
+.mob-bar {
   display: none;
   position: fixed; bottom: 0; left: 0; right: 0;
-  background: var(--white);
-  border-top: 1px solid var(--border);
-  padding: 8px 0 calc(8px + env(safe-area-inset-bottom));
-  z-index: 300;
+  background: var(--ivory);
+  border-top: 2px solid var(--ink);
+  padding: 5px 0 calc(5px + env(safe-area-inset-bottom));
+  z-index: 500;
   justify-content: space-around;
 }
-
-@media (max-width: 768px) { .mobile-nav { display: flex; } body { padding-bottom: 70px; } }
-
-.mob-nav-btn {
-  display: flex; flex-direction: column; align-items: center; gap: 2px;
-  padding: 6px 12px;
+.mb-btn {
+  display: flex; flex-direction: column; align-items: center; gap: 1px;
   background: none; border: none; cursor: pointer;
-  font-size: 9px; font-weight: 700; color: var(--text3);
-  text-transform: uppercase; letter-spacing: 0.5px;
-  border-radius: 8px;
-  transition: color 0.15s;
+  font-family: var(--mono); font-size: 7.5px; text-transform: uppercase; letter-spacing: .5px;
+  color: var(--ink3); padding: 4px 7px; transition: color .12s;
 }
+.mb-btn .mb-i { font-size: 15px; }
+.mb-btn.on { color: var(--navy); }
 
-.mob-nav-btn .mob-icon { font-size: 18px; }
-.mob-nav-btn.active { color: var(--accent); }
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--ivory2); }
+::-webkit-scrollbar-thumb { background: var(--ivory3); }
+
+@media(max-width:1100px){
+  .fm-grid { grid-template-columns: repeat(2,1fr); }
+  .stat-strip { grid-template-columns: repeat(2,1fr); }
+  .flash-grid { grid-template-columns: 1fr; }
+  .flash-side { position: static; }
+  .ana-grid { grid-template-columns: 1fr; }
+  .readiness-banner { grid-template-columns: 1fr; }
+}
+@media(max-width:768px){
+  nav.mast-nav { display: none; }
+  main { padding: 16px 16px 72px; }
+  .fm-grid { grid-template-columns: 1fr; }
+  .mode-rack { grid-template-columns: repeat(2,1fr); }
+  .timer-pair { grid-template-columns: 1fr; }
+  .mob-bar { display: flex; }
+  .stat-strip { grid-template-columns: repeat(2,1fr); }
+  .clock { font-size: 38px; }
+  .pg-title { font-size: 22px; }
+  .ticker-wrap { display: none; }
+}
+@media(max-width:480px){
+  .mode-rack { grid-template-columns: 1fr; }
+  .stat-strip { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="header-inner">
-    <a class="logo" href="#">
-      <div class="logo-mark">CFA</div>
-      <div class="logo-name">Study<em>Hub</em></div>
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-belt" id="tickerBelt"></div>
+</div>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="mast-inner">
+    <a class="brand" href="#">
+      <div class="brand-name">The CFA Ledger</div>
+      <div class="brand-sub">Level I · Study Terminal</div>
     </a>
-    <nav>
-      <button class="nav-btn active" onclick="go('dashboard')">📊 Dashboard</button>
-      <button class="nav-btn" onclick="go('flashcards')">🃏 Flashcards</button>
-      <button class="nav-btn" onclick="go('formulas')">📐 Formulas</button>
-      <button class="nav-btn" onclick="go('practice')">✏️ Practice</button>
-      <button class="nav-btn" onclick="go('timer')">⏱ Timer</button>
+    <nav class="mast-nav">
+      <button class="mn on" onclick="go('dash')">Portfolio</button>
+      <button class="mn" onclick="go('flash')">Flashcards</button>
+      <button class="mn" onclick="go('form')">Formulary</button>
+      <button class="mn" onclick="go('mock')">Mock Exam</button>
+      <button class="mn" onclick="go('ana')">Analytics</button>
+      <button class="mn" onclick="go('timer')">Sessions</button>
     </nav>
-    <div class="header-pills">
-      <div class="pill pill-streak">🔥 <span id="streakVal">0</span>d</div>
-      <div class="pill pill-xp">⭐ <span id="xpVal">0</span> XP</div>
+    <div class="mast-stats">
+      <div class="ms"><div class="ms-v" id="hStreak">0</div><div class="ms-l">Streak</div></div>
+      <div class="ms"><div class="ms-v" id="hXP">0</div><div class="ms-l">XP</div></div>
+      <div class="ms"><div class="ms-v" id="hDone">0%</div><div class="ms-l">Done</div></div>
     </div>
   </div>
 </header>
 
 <main>
 
-<!-- ════════════════════════════════
-     DASHBOARD
-════════════════════════════════ -->
-<div class="view active" id="view-dashboard">
+<!-- ═══ DASHBOARD ═══ -->
+<div class="view on" id="view-dash">
+  <div class="pg-head">
+    <div>
+      <div class="pg-eye">CFA Level I · Learning Portfolio</div>
+      <div class="pg-title">Your Study Ledger</div>
+    </div>
+    <div class="pg-meta" id="todayDate"></div>
+  </div>
 
-  <div class="page-title">Your Study Dashboard</div>
-  <div class="page-sub">CFA Level I · Track every reading, earn XP, and stay on target</div>
-
-  <!-- Stats -->
-  <div class="stat-grid">
-    <div class="stat-card s-blue">
-      <div class="stat-icon">📘</div>
-      <div class="stat-label">Overall Progress</div>
-      <div class="stat-val" id="s-pct">0%</div>
-      <div class="stat-hint" id="s-done">0 / 0 readings done</div>
-      <div class="progress-bar"><div class="progress-fill" id="s-bar" style="background:var(--accent);width:0%"></div></div>
+  <div class="stat-strip">
+    <div class="stat-cell">
+      <div class="sc-lbl">Curriculum Completion</div>
+      <div class="sc-val" id="dPct">0%</div>
+      <div class="sc-sub" id="dDone">0 of 0 readings</div>
+      <div class="sc-prog"><div class="sc-prog-fill" id="dBar" style="background:var(--navy);width:0%"></div></div>
     </div>
-    <div class="stat-card s-violet">
-      <div class="stat-icon">🃏</div>
-      <div class="stat-label">Flashcards Reviewed</div>
-      <div class="stat-val" id="s-cards">0</div>
-      <div class="stat-hint">cards studied so far</div>
-      <div class="progress-bar"><div class="progress-fill" id="s-cbar" style="background:#7c3aed;width:0%"></div></div>
+    <div class="stat-cell">
+      <div class="sc-lbl">Cards Reviewed</div>
+      <div class="sc-val" id="dCards">0</div>
+      <div class="sc-sub">flashcards studied</div>
+      <div class="sc-prog"><div class="sc-prog-fill" id="dCBar" style="background:var(--gold);width:0%"></div></div>
     </div>
-    <div class="stat-card s-amber">
-      <div class="stat-icon">🎯</div>
-      <div class="stat-label">Practice Score</div>
-      <div class="stat-val" id="s-score">—</div>
-      <div class="stat-hint" id="s-qs">No attempts yet</div>
+    <div class="stat-cell">
+      <div class="sc-lbl">Practice Accuracy</div>
+      <div class="sc-val" id="dScore">—</div>
+      <div class="sc-sub" id="dQsub">no attempts yet</div>
     </div>
-    <div class="stat-card s-green">
-      <div class="stat-icon">⏱</div>
-      <div class="stat-label">Study Time</div>
-      <div class="stat-val" id="s-time">0m</div>
-      <div class="stat-hint">total focus time logged</div>
+    <div class="stat-cell">
+      <div class="sc-lbl">Study Time</div>
+      <div class="sc-val" id="dTime">0m</div>
+      <div class="sc-sub">total logged</div>
     </div>
   </div>
 
-  <!-- Topics -->
-  <div class="section-hd">
-    <div class="section-title">Curriculum Readings</div>
-    <div style="display:flex;gap:8px">
+  <div class="rl">
+    <span>Curriculum Readings — click row to expand</span>
+    <div style="display:flex;gap:7px">
       <button class="btn" onclick="resetAll()">↺ Reset</button>
-      <button class="btn btn-primary" onclick="markAllDone()">✓ Mark All Done</button>
+      <button class="btn btn-p" onclick="markAll()">✓ Mark All Done</button>
     </div>
   </div>
 
-  <div class="topics-grid" id="topicsGrid"></div>
-
+  <table class="ledger">
+    <thead>
+      <tr>
+        <th style="width:38%">Topic</th>
+        <th>Exam Weight</th>
+        <th>Readings</th>
+        <th>Progress</th>
+        <th class="r">Done</th>
+      </tr>
+    </thead>
+    <tbody id="ledgerBody"></tbody>
+  </table>
 </div>
 
-<!-- ════════════════════════════════
-     FLASHCARDS
-════════════════════════════════ -->
-<div class="view" id="view-flashcards">
-
-  <div class="page-title">Flashcards</div>
-  <div class="page-sub">Spaced repetition — flip, rate, and master every concept</div>
-
-  <div class="flash-layout">
-    <!-- sidebar -->
-    <div class="flash-sidebar">
-      <div class="card">
-        <div style="font-size:12px;font-weight:800;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;padding:0 0 12px;margin-bottom:4px;border-bottom:1px solid var(--bg2)">Filter by Topic</div>
-        <div class="filter-list" id="filterList"></div>
+<!-- ═══ FLASHCARDS ═══ -->
+<div class="view" id="view-flash">
+  <div class="pg-head">
+    <div><div class="pg-eye">Active Recall · Spaced Repetition</div><div class="pg-title">Flashcard Drill</div></div>
+  </div>
+  <div class="flash-grid">
+    <div class="flash-side">
+      <div class="side-box">
+        <div class="side-hd">Filter by Subject</div>
+        <div id="filterList"></div>
       </div>
     </div>
-
-    <!-- main -->
     <div class="flash-main">
-      <div class="flash-stats-row">
-        <div class="flash-stat"><div class="dot" style="background:#ef4444"></div><span id="st-again">0</span> Again</div>
-        <div class="flash-stat"><div class="dot" style="background:#d97706"></div><span id="st-hard">0</span> Hard</div>
-        <div class="flash-stat"><div class="dot" style="background:var(--green)"></div><span id="st-good">0</span> Good</div>
-        <div class="flash-stat"><div class="dot" style="background:var(--accent)"></div><span id="st-easy">0</span> Easy</div>
-        <div style="margin-left:auto;font-size:12px;color:var(--text3)" id="flashCounter">Card 1 of 1</div>
+      <div class="recall-bar">
+        <div class="rc-seg ag"><span id="rAgain">0</span>Again</div>
+        <div class="rc-seg hd"><span id="rHard">0</span>Hard</div>
+        <div class="rc-seg gd"><span id="rGood">0</span>Good</div>
+        <div class="rc-seg ez"><span id="rEasy">0</span>Easy</div>
       </div>
-
-      <div class="card-wrap">
-        <div class="card-inner" id="cardInner" onclick="flipCard()">
-          <div class="card-face card-front">
-            <span class="card-badge" id="cardBadge">Ethics</span>
-            <div class="card-q" id="cardQ">Loading question...</div>
-            <div class="card-flip-hint">↕ Click to reveal answer</div>
+      <div class="card-ctr" id="cardCtr">Card 1 of 1</div>
+      <div class="card-stage">
+        <div class="card-pivot" id="cardPivot" onclick="flipCard()">
+          <div class="card-side side-q">
+            <span class="c-tag" id="cTagF">Ethics</span>
+            <div class="c-q" id="cQ">Loading...</div>
+            <div class="c-hint">— click to reveal —</div>
           </div>
-          <div class="card-face card-back">
-            <span class="card-badge" id="cardBadgeB">Ethics</span>
-            <div class="card-a" id="cardA">Answer</div>
+          <div class="card-side side-a">
+            <span class="c-tag" id="cTagB">Ethics</span>
+            <div class="c-a" id="cA">Answer</div>
+            <div class="c-hint">Rate your recall below</div>
           </div>
         </div>
       </div>
-
-      <div class="flash-nav">
-        <button class="icon-btn" onclick="prevCard()">←</button>
+      <div class="card-foot">
+        <button class="arr-btn" onclick="prevCard()">←</button>
         <div class="rate-row" id="rateRow">
-          <button class="rate-btn r-again" onclick="rate('again')">Again</button>
-          <button class="rate-btn r-hard"  onclick="rate('hard')">Hard</button>
-          <button class="rate-btn r-good"  onclick="rate('good')">Good ✓</button>
-          <button class="rate-btn r-easy"  onclick="rate('easy')">Easy ⚡</button>
+          <button class="r-btn r-ag" onclick="rateCard('again')">Again</button>
+          <button class="r-btn r-hd" onclick="rateCard('hard')">Hard</button>
+          <button class="r-btn r-gd" onclick="rateCard('good')">Good</button>
+          <button class="r-btn r-ez" onclick="rateCard('easy')">Easy</button>
         </div>
-        <button class="icon-btn" onclick="nextCard()">→</button>
+        <button class="arr-btn" onclick="nextCard()">→</button>
       </div>
     </div>
   </div>
-
 </div>
 
-<!-- ════════════════════════════════
-     FORMULAS
-════════════════════════════════ -->
-<div class="view" id="view-formulas">
-  <div class="page-title">Formula Reference</div>
-  <div class="page-sub">Essential CFA Level I formulas — organised by topic</div>
-  <div class="formula-grid" id="formulaGrid"></div>
-</div>
-
-<!-- ════════════════════════════════
-     PRACTICE
-════════════════════════════════ -->
-<div class="view" id="view-practice">
-
-  <!-- setup -->
-  <div id="practiceSetup">
-    <div class="page-title">Practice Questions</div>
-    <div class="page-sub">Choose your session type and start drilling</div>
-    <div class="mode-grid" id="modeGrid"></div>
-    <button class="start-btn" onclick="startTest()">▶&nbsp; Start Session</button>
+<!-- ═══ FORMULARY ═══ -->
+<div class="view" id="view-form">
+  <div class="pg-head">
+    <div><div class="pg-eye">Reference Sheet</div><div class="pg-title">Formulary</div></div>
   </div>
+  <div class="fm-grid" id="fmGrid"></div>
+</div>
 
-  <!-- questions -->
-  <div id="practiceQ" style="display:none">
-    <div class="q-header">
-      <div class="q-num-badge" id="qNumBadge">Q 1 / 10</div>
-      <div class="progress-bar" style="flex:1;margin:0 4px">
-        <div class="progress-fill" id="qBar" style="background:var(--accent);width:10%"></div>
-      </div>
-      <div class="q-score-badge" id="qScoreBadge">0 / 0</div>
+<!-- ═══ MOCK EXAM ═══ -->
+<div class="view" id="view-mock">
+  <div id="mockSetup">
+    <div class="pg-head">
+      <div><div class="pg-eye">Exam Simulation</div><div class="pg-title">Mock Examination</div></div>
     </div>
-
-    <div class="question-card">
-      <div class="q-topic-tag" id="qTopicTag">Topic</div>
+    <div class="mode-rack" id="modeRack"></div>
+    <button class="begin-btn" onclick="startExam()">▶  Begin Examination</button>
+  </div>
+  <div id="mockQ" style="display:none">
+    <div class="q-prog">
+      <div class="q-lbl" id="qLabel">Q 1 / 10</div>
+      <div class="prog-track"><div class="prog-fill" id="qFill" style="background:var(--navy);width:10%"></div></div>
+      <div class="q-lbl" id="qScore">Score: 0/0</div>
+    </div>
+    <div class="q-card">
+      <div class="q-chip" id="qTopic">Topic</div>
       <div class="q-text" id="qText"></div>
-      <div class="opts" id="optsWrap"></div>
-      <div class="explanation" id="expBox"></div>
+      <div class="opts" id="qOpts"></div>
+      <div class="exp" id="qExp"></div>
     </div>
-
-    <div class="q-footer">
-      <button class="btn btn-danger" onclick="endTest()">✕ End</button>
-      <button class="btn btn-primary" id="nextBtn" onclick="nextQ()" style="display:none">Next →</button>
+    <div class="q-foot">
+      <button class="btn btn-d" onclick="abandonExam()">Abandon Exam</button>
+      <button class="btn btn-p" id="nextBtn" onclick="nextQ()" style="display:none">Next Question →</button>
     </div>
   </div>
-
-  <!-- results -->
-  <div id="practiceResult" style="display:none">
-    <div class="results-card">
-      <div class="results-emoji" id="resEmoji">🎓</div>
-      <div class="results-title">Session Complete!</div>
-      <div class="results-sub" id="resSub"></div>
-      <div class="results-nums">
-        <div class="result-num">
-          <div class="result-num-label">Score</div>
-          <div class="result-num-val" id="resScore" style="color:var(--accent)">—</div>
-        </div>
-        <div class="result-num">
-          <div class="result-num-label">Correct</div>
-          <div class="result-num-val" id="resCorrect" style="color:var(--green)">—</div>
-        </div>
-        <div class="result-num">
-          <div class="result-num-label">XP Earned</div>
-          <div class="result-num-val" id="resXP" style="color:#d97706">—</div>
-        </div>
+  <div id="mockResult" style="display:none">
+    <div class="result-wrap">
+      <div class="result-hd">
+        <div class="res-ico" id="resIcon">🎓</div>
+        <div class="res-title">Examination Complete</div>
+        <div class="res-sub" id="resSub"></div>
       </div>
-      <button class="start-btn" style="max-width:260px;margin:0 auto" onclick="resetTest()">🔄 New Session</button>
+      <div class="result-nums">
+        <div class="rn"><div class="rn-l">Score</div><div class="rn-v" id="resScore" style="color:var(--navy)">—</div></div>
+        <div class="rn"><div class="rn-l">Correct</div><div class="rn-v" id="resCorrect" style="color:var(--green)">—</div></div>
+        <div class="rn"><div class="rn-l">XP Earned</div><div class="rn-v" id="resXP" style="color:var(--gold)">—</div></div>
+      </div>
+      <div class="result-foot">
+        <button class="begin-btn" style="max-width:240px;margin:0 auto" onclick="resetExam()">↺ New Examination</button>
+      </div>
     </div>
   </div>
-
 </div>
 
-<!-- ════════════════════════════════
-     TIMER
-════════════════════════════════ -->
-<div class="view" id="view-timer">
-  <div class="page-title">Study Timer</div>
-  <div class="page-sub">Pomodoro focus sessions + lifetime study tracking</div>
+<!-- ═══ ANALYTICS ═══ -->
+<div class="view" id="view-ana">
+  <div class="pg-head">
+    <div><div class="pg-eye">Performance Intelligence</div><div class="pg-title">Analytics & Readiness Report</div></div>
+  </div>
 
-  <div class="timer-grid">
-    <div class="timer-card">
-      <div class="timer-card-title">Pomodoro Timer</div>
-      <div class="timer-display"><span id="pomMin">25</span>:<span id="pomSec" class="t-accent">00</span></div>
-      <div class="timer-sub" id="pomLabel">Focus · 25 minutes</div>
-      <div class="timer-btns">
-        <button class="btn btn-primary" id="pomBtn" onclick="togglePom()">▶ Start</button>
+  <div class="readiness-banner">
+    <div class="rb-left">
+      <div class="rb-eye">Exam Day Readiness Assessment</div>
+      <div class="rb-title">Your Current Standing</div>
+      <div class="rb-desc">Synthesised from curriculum progress, flashcard ratings & practice performance</div>
+    </div>
+    <div class="rb-right">
+      <div class="rb-stat"><div class="rb-v" id="anaR">0%</div><div class="rb-l">Curriculum</div></div>
+      <div class="rb-stat"><div class="rb-v" id="anaS">—</div><div class="rb-l">Avg Score</div></div>
+      <div class="rb-stat"><div class="rb-v" id="anaC">0</div><div class="rb-l">Cards</div></div>
+      <div class="rb-stat"><div class="rb-v" id="anaH">0</div><div class="rb-l">Hard Cards</div></div>
+    </div>
+  </div>
+
+  <div class="rl" style="margin-bottom:0">Priority Action Items — topics and concepts requiring your immediate attention</div>
+  <div class="ana-box" style="margin-bottom:18px">
+    <div class="attention-list" id="attentionList"></div>
+  </div>
+
+  <div class="ana-grid">
+    <div class="ana-box">
+      <div class="ab-head"><div class="ab-title">Topic Completion</div><div class="ab-sub">— % readings done per topic</div></div>
+      <div class="ab-body"><div class="topic-bars" id="topicBars"></div></div>
+    </div>
+    <div class="ana-box">
+      <div class="ab-head"><div class="ab-title">Practice Score by Topic</div><div class="ab-sub">— correct per subject area</div></div>
+      <div class="ab-body"><table class="score-tbl" id="scoreByTopic"></table></div>
+    </div>
+    <div class="ana-box">
+      <div class="ab-head"><div class="ab-title">Hard & Again Cards</div><div class="ab-sub">— review before exam day</div></div>
+      <div class="ab-body"><div class="hc-list" id="hardCardList"></div></div>
+    </div>
+    <div class="ana-box">
+      <div class="ab-head"><div class="ab-title">Untouched Readings</div><div class="ab-sub">— zero engagement · high risk</div></div>
+      <div class="ab-body"><div class="hc-list" id="untouchedList"></div></div>
+    </div>
+    <div class="ana-box ana-span">
+      <div class="ab-head"><div class="ab-title">Flashcard Recall Distribution</div><div class="ab-sub">— cumulative ratings across all sessions</div></div>
+      <div class="ab-body" style="display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start">
+        <div style="flex:1;min-width:180px">
+          <div class="dist-bars">
+            <div class="db-col"><div class="db-bar" style="background:var(--red)"   id="dbAg"></div><div class="db-val" id="dvAg" style="color:var(--red)">0</div><div class="db-lbl">Again</div></div>
+            <div class="db-col"><div class="db-bar" style="background:var(--gold)"  id="dbHd"></div><div class="db-val" id="dvHd" style="color:var(--gold)">0</div><div class="db-lbl">Hard</div></div>
+            <div class="db-col"><div class="db-bar" style="background:var(--green)" id="dbGd"></div><div class="db-val" id="dvGd" style="color:var(--green)">0</div><div class="db-lbl">Good</div></div>
+            <div class="db-col"><div class="db-bar" style="background:var(--slate)" id="dbEz"></div><div class="db-val" id="dvEz" style="color:var(--slate)">0</div><div class="db-lbl">Easy</div></div>
+          </div>
+        </div>
+        <div style="flex:2;min-width:200px;font-size:12px;color:var(--ink2);line-height:1.75">
+          <strong style="font-family:var(--mono)">Again + Hard</strong> cards signal gaps in retention — these appear above and should be reviewed daily in your final revision week.<br><br>
+          A passing candidate typically achieves &gt;70% <strong style="font-family:var(--mono)">Good / Easy</strong> ratings. Anything below 50% combined warrants an urgent revisit of the relevant topic.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SESSIONS ═══ -->
+<div class="view" id="view-timer">
+  <div class="pg-head">
+    <div><div class="pg-eye">Focus Management</div><div class="pg-title">Study Sessions</div></div>
+  </div>
+  <div class="timer-pair">
+    <div class="timer-cell">
+      <div class="tc-lbl">Pomodoro Timer</div>
+      <div class="clock"><span id="pmMin">25</span>:<span id="pmSec" class="ac">00</span></div>
+      <div class="tc-sub" id="pmLabel">Focus Block · 25 min</div>
+      <div class="tc-btns">
+        <button class="btn btn-p" id="pmBtn" onclick="togglePom()">▶ Start</button>
         <button class="btn" onclick="resetPom()">↺ Reset</button>
       </div>
-      <div class="pom-presets">
-        <button class="preset-btn" onclick="setPom(25,'Focus · 25 minutes')">25m Focus</button>
-        <button class="preset-btn" onclick="setPom(50,'Deep Work · 50 minutes')">50m Deep</button>
-        <button class="preset-btn" onclick="setPom(5,'Short Break · 5 minutes')">5m Break</button>
-        <button class="preset-btn" onclick="setPom(15,'Long Break · 15 minutes')">15m Break</button>
+      <div class="presets">
+        <button class="preset" onclick="setPom(25,'Focus Block · 25 min')">25m</button>
+        <button class="preset" onclick="setPom(50,'Deep Work · 50 min')">50m</button>
+        <button class="preset" onclick="setPom(5,'Short Break · 5 min')">5m</button>
+        <button class="preset" onclick="setPom(15,'Long Break · 15 min')">15m</button>
       </div>
     </div>
-
-    <div class="timer-card">
-      <div class="timer-card-title">Session Tracker</div>
-      <div class="timer-display">
-        <span id="sH">00</span>:<span id="sM">00</span><span style="font-size:28px;color:var(--text3)">:<span id="sS">00</span></span>
-      </div>
-      <div class="timer-sub">Live session time</div>
-      <div class="timer-btns">
-        <button class="btn btn-primary" id="sessBtn" onclick="toggleSess()">▶ Start Session</button>
+    <div class="timer-cell">
+      <div class="tc-lbl">Live Session Clock</div>
+      <div class="clock"><span id="sH">00</span>:<span id="sM">00</span><span style="font-size:28px;color:var(--ink3)">:<span id="sS">00</span></span></div>
+      <div class="tc-sub">Elapsed session time</div>
+      <div class="tc-btns">
+        <button class="btn btn-p" id="sBtn" onclick="toggleSess()">▶ Begin</button>
         <button class="btn" onclick="resetSess()">↺ Reset</button>
       </div>
-      <div style="font-size:13px;color:var(--text2);margin-top:8px">
-        Total logged: <strong style="color:var(--accent)" id="lifeTime">0h 0m</strong>
+      <div style="font-size:11.5px;color:var(--ink2);margin-top:5px;font-family:var(--mono)">
+        Lifetime: <strong style="color:var(--gold)" id="ltTime">0h 0m</strong>
       </div>
     </div>
   </div>
-
-  <div class="section-hd"><div class="section-title">Session Log</div></div>
-  <div class="session-log" id="sessLog">
-    <div style="font-size:13px;color:var(--text3);padding:12px 0">No sessions yet. Start a session above.</div>
+  <div class="rl">Session Log</div>
+  <div class="sess-log" id="sessLog">
+    <div style="font-size:11.5px;color:var(--ink3);padding:13px 15px;font-family:var(--mono)">No sessions recorded yet.</div>
   </div>
 </div>
 
 </main>
 
-<!-- MOBILE NAV -->
-<div class="mobile-nav">
-  <button class="mob-nav-btn active" onclick="go('dashboard')"><span class="mob-icon">📊</span>Dashboard</button>
-  <button class="mob-nav-btn" onclick="go('flashcards')"><span class="mob-icon">🃏</span>Cards</button>
-  <button class="mob-nav-btn" onclick="go('formulas')"><span class="mob-icon">📐</span>Formulas</button>
-  <button class="mob-nav-btn" onclick="go('practice')"><span class="mob-icon">✏️</span>Practice</button>
-  <button class="mob-nav-btn" onclick="go('timer')"><span class="mob-icon">⏱</span>Timer</button>
-</div>
+<nav class="mob-bar">
+  <button class="mb-btn on" onclick="go('dash')"><span class="mb-i">📋</span>Portfolio</button>
+  <button class="mb-btn" onclick="go('flash')"><span class="mb-i">🃏</span>Drill</button>
+  <button class="mb-btn" onclick="go('form')"><span class="mb-i">📐</span>Formula</button>
+  <button class="mb-btn" onclick="go('mock')"><span class="mb-i">✏️</span>Mock</button>
+  <button class="mb-btn" onclick="go('ana')"><span class="mb-i">📈</span>Report</button>
+  <button class="mb-btn" onclick="go('timer')"><span class="mb-i">⏱</span>Timer</button>
+</nav>
 
 <script>
-/* ══════════════ DATA ══════════════ */
-const TOPICS = [
-  { id:'ethics', name:'Ethics & Standards', weight:'15–20%', icon:'⚖️', col:'#1a56db',
-    subs:['Code of Ethics & Standards of Professional Conduct','Guidance for Standards I–III','Guidance for Standards IV–VII','Global Investment Performance Standards (GIPS)','Introduction to GIPS'] },
-  { id:'quant', name:'Quantitative Methods', weight:'6–9%', icon:'📐', col:'#7c3aed',
-    subs:['Time Value of Money','Money Market & DCF Applications','Statistical Concepts & Market Returns','Probability Concepts','Common Probability Distributions','Sampling & Estimation','Hypothesis Testing','Introduction to Linear Regression'] },
-  { id:'econ', name:'Economics', weight:'6–9%', icon:'📈', col:'#0891b2',
-    subs:['Topics in Demand & Supply Analysis','The Firm & Market Structures','Aggregate Output, Prices & Growth','Understanding Business Cycles','Monetary & Fiscal Policy','International Trade & Capital Flows','Currency Exchange Rates'] },
-  { id:'fra', name:'Financial Reporting & Analysis', weight:'11–14%', icon:'📊', col:'#b45309',
-    subs:['Introduction to FSA','Financial Reporting Standards','Understanding Income Statements','Understanding Balance Sheets','Understanding Cash Flow Statements','Financial Analysis Techniques','Inventories','Long-Lived Assets','Income Taxes','Non-current Liabilities','Financial Reporting Quality','Applications of FSA'] },
-  { id:'corp', name:'Corporate Issuers', weight:'6–9%', icon:'🏢', col:'#c2410c',
-    subs:['Corporate Structures & Ownership','Investors & Other Stakeholders','Corporate Governance','Capital Structure','Capital Allocation','Working Capital & Liquidity','Business Models'] },
-  { id:'equity', name:'Equity Investments', weight:'11–14%', icon:'📉', col:'#be185d',
-    subs:['Market Organization & Structure','Security Market Indexes','Market Efficiency','Overview of Equity Securities','Industry & Company Analysis','Equity Valuation: Concepts & Basic Tools'] },
-  { id:'fi', name:'Fixed Income', weight:'11–14%', icon:'💰', col:'#0369a1',
-    subs:['Fixed-Income Instrument Features','Fixed-Income Cash Flows & Types','Fixed-Income Issuance & Trading','Fixed-Income Markets: Corporate','Fixed-Income Markets: Government','Bond Valuation: Prices & Yields','Yield & Yield Spread Measures','Term Structure of Interest Rates','Interest Rate Risk & Return','Credit Risk','Asset-Backed Securities'] },
-  { id:'deriv', name:'Derivatives', weight:'5–8%', icon:'🔀', col:'#6d28d9',
-    subs:['Derivative Instrument & Market Features','Forward & Contingent Claim Instruments','Derivative Benefits, Risks & Uses','Arbitrage, Replication & Cost of Carry','Pricing & Valuation of Forwards','Pricing & Valuation of Futures','Pricing & Valuation of Swaps','Pricing & Valuation of Options','Put-Call Parity','One-Period Binomial Model'] },
-  { id:'alt', name:'Alternative Investments', weight:'5–8%', icon:'🏛️', col:'#065f46',
-    subs:['Alternative Investment Features & Structures','Alternative Investment Performance','Private Capital: Equity & Debt','Real Estate & Infrastructure','Natural Resources','Hedge Funds','Introduction to Digital Assets'] },
-  { id:'port', name:'Portfolio Management', weight:'8–12%', icon:'🗂️', col:'#92400e',
-    subs:['Portfolio Risk & Return: Part I','Portfolio Risk & Return: Part II','Portfolio Management Overview','Portfolio Planning & Construction','Behavioral Biases of Individuals','Introduction to Risk Management','Technical Analysis','FinTech in Investment Management'] },
+/* ════ DATA ════ */
+const TOPICS=[
+  {id:'eth',name:'Ethics & Standards',w:'15–20%',e:'⚖️',c:'#0d1b2a',
+   s:['Code of Ethics & Standards of Conduct','Guidance for Standards I–III','Guidance for Standards IV–VII','Global Investment Performance Standards (GIPS)','Introduction to GIPS']},
+  {id:'qnt',name:'Quantitative Methods',w:'6–9%',e:'📐',c:'#4c1d95',
+   s:['Time Value of Money','Money Market & DCF Applications','Statistical Concepts & Market Returns','Probability Concepts','Common Probability Distributions','Sampling & Estimation','Hypothesis Testing','Introduction to Linear Regression']},
+  {id:'eco',name:'Economics',w:'6–9%',e:'📈',c:'#0e5f6e',
+   s:['Topics in Demand & Supply Analysis','The Firm & Market Structures','Aggregate Output, Prices & Growth','Understanding Business Cycles','Monetary & Fiscal Policy','International Trade & Capital Flows','Currency Exchange Rates']},
+  {id:'fra',name:'Financial Reporting',w:'11–14%',e:'📊',c:'#92400e',
+   s:['Introduction to Financial Statement Analysis','Financial Reporting Standards','Understanding Income Statements','Understanding Balance Sheets','Understanding Cash Flow Statements','Financial Analysis Techniques','Inventories','Long-Lived Assets','Income Taxes','Non-current Liabilities','Financial Reporting Quality','Applications of FSA']},
+  {id:'cor',name:'Corporate Issuers',w:'6–9%',e:'🏢',c:'#9a3412',
+   s:['Corporate Structures & Ownership','Investors & Other Stakeholders','Corporate Governance','Capital Structure','Capital Allocation','Working Capital & Liquidity','Business Models']},
+  {id:'eqt',name:'Equity Investments',w:'11–14%',e:'📉',c:'#831843',
+   s:['Market Organization & Structure','Security Market Indexes','Market Efficiency','Overview of Equity Securities','Industry & Company Analysis','Equity Valuation: Concepts & Basic Tools']},
+  {id:'fxi',name:'Fixed Income',w:'11–14%',e:'💰',c:'#1e3a8a',
+   s:['Fixed-Income Instrument Features','Fixed-Income Cash Flows & Types','Issuance & Trading','Markets for Corporate Issuers','Markets for Government Issuers','Bond Valuation: Prices & Yields','Yield & Yield Spread Measures','Term Structure of Interest Rates','Interest Rate Risk & Return','Credit Risk','Asset-Backed Securities']},
+  {id:'drv',name:'Derivatives',w:'5–8%',e:'🔀',c:'#3b0764',
+   s:['Derivative Instrument & Market Features','Forward & Contingent Claim Instruments','Derivative Benefits, Risks & Uses','Arbitrage, Replication & Cost of Carry','Pricing & Valuation of Forwards','Pricing & Valuation of Futures','Pricing & Valuation of Swaps','Pricing & Valuation of Options','Put-Call Parity','One-Period Binomial Model']},
+  {id:'alt',name:'Alternative Investments',w:'5–8%',e:'🏛️',c:'#064e3b',
+   s:['Alternative Investment Features & Structures','Alternative Investment Performance','Private Capital: Equity & Debt','Real Estate & Infrastructure','Natural Resources','Hedge Funds','Introduction to Digital Assets']},
+  {id:'prt',name:'Portfolio Management',w:'8–12%',e:'🗂️',c:'#78350f',
+   s:['Portfolio Risk & Return: Part I','Portfolio Risk & Return: Part II','Portfolio Management Overview','Portfolio Planning & Construction','Behavioral Biases of Individuals','Introduction to Risk Management','Technical Analysis','FinTech in Investment Management']},
 ];
 
-const CARDS = [
-  {topic:'Ethics',q:'What are the 6 components of the CFA Institute Code of Ethics?',a:'(1) Integrity, competence, diligence, respect. (2) Place client interests before your own. (3) Practice independently. (4) Maintain capital market integrity. (5) Maintain investment competence. (6) Promote the integrity of the profession.'},
-  {topic:'Ethics',q:'Standard I(B): Independence and Objectivity — what does it require?',a:'Members must use reasonable care to maintain independence and objectivity. Do NOT offer, solicit, or accept gifts/compensation that could compromise independence or create a conflict of interest.'},
-  {topic:'Ethics',q:'What is "mosaic theory" in CFA ethics?',a:'Combining material nonpublic information with public information to reach a conclusion. The conclusion itself is NOT a violation as long as no single piece is both material AND nonpublic.'},
-  {topic:'Ethics',q:'Priority of transactions under Standard VI(B)',a:'Client transactions take priority over employer or personal transactions. Avoid front-running. IPO allocations should go to clients first.'},
-  {topic:'Ethics',q:'What is the Prudent Investor Rule?',a:'A fiduciary must invest and manage assets as a prudent investor would — considering the overall portfolio, risk/return objectives, and long-term goals of the beneficiary.'},
-  {topic:'Quant',q:'What is the difference between EAR and APR?',a:'APR = nominal rate, unadjusted for compounding. EAR = (1 + periodic rate)^m − 1. EAR reflects the true cost/return with compounding. Always compare investments using EAR.'},
-  {topic:'Quant',q:'What are Type I and Type II errors in hypothesis testing?',a:'<strong>Type I (α):</strong> Rejecting a true null hypothesis (false positive). <strong>Type II (β):</strong> Failing to reject a false null hypothesis (false negative). Power = 1 − β.'},
-  {topic:'Quant',q:'What is the Central Limit Theorem?',a:'For samples of size n ≥ 30, the distribution of the sample mean approaches normal with mean μ and standard error σ/√n, regardless of the population distribution shape.'},
-  {topic:'Quant',q:'Define covariance and how it relates to correlation.',a:'Cov(A,B) = ρ × σ_A × σ_B. Correlation ρ normalizes covariance between −1 and +1. Covariance measures how two variables co-move; correlation standardizes this measure.'},
-  {topic:'Quant',q:'What is a p-value?',a:'The smallest significance level at which H₀ can be rejected. If p < α, reject H₀. A smaller p-value = stronger evidence against the null.'},
-  {topic:'Economics',q:'What shifts the aggregate demand curve?',a:'Changes in: Consumer wealth/expectations, business Investment, Government spending, Net exports. Also: money supply, exchange rates, and interest rate expectations.'},
-  {topic:'Economics',q:'Distinguish between M1 and M2 money supply.',a:'<strong>M1:</strong> Currency + demand deposits + traveler\'s checks. <strong>M2:</strong> M1 + savings deposits + small time deposits + money market funds.'},
-  {topic:'Economics',q:'What is the J-curve effect in international trade?',a:'After currency depreciation, the trade balance initially worsens (inelastic imports/exports) before improving as quantities adjust. The path traces a J shape.'},
-  {topic:'FRA',q:'LIFO vs FIFO: which gives higher net income in rising prices?',a:'<strong>FIFO</strong> gives higher net income (lower COGS, higher ending inventory). <strong>LIFO</strong> gives lower net income but higher cash flows (lower taxes). LIFO is banned under IFRS.'},
-  {topic:'FRA',q:'What is the quick ratio and what does it measure?',a:'Quick Ratio = (Cash + Short-term investments + Receivables) / Current Liabilities. Measures short-term solvency without relying on inventory liquidation.'},
-  {topic:'FRA',q:'What are the four financial statements?',a:'(1) Income Statement — revenues/expenses over a period. (2) Balance Sheet — assets/liabilities/equity at a point in time. (3) Cash Flow Statement. (4) Statement of Changes in Equity.'},
-  {topic:'FRA',q:'Difference between operating and finance leases under IFRS 16?',a:'Under IFRS 16, ALL leases create a right-of-use asset and lease liability on the balance sheet. Finance leases recognize interest expense + amortization; operating leases show a single lease expense.'},
-  {topic:'Equity',q:'What are the three forms of market efficiency?',a:'<strong>Weak:</strong> Prices reflect past trading data. <strong>Semi-strong:</strong> Prices reflect all public information. <strong>Strong:</strong> Prices reflect all public AND private information. Anomalies challenge semi-strong form.'},
-  {topic:'Equity',q:'Gordon Growth Model (Constant Growth DDM) formula?',a:'P₀ = D₁ / (r − g) where D₁ = next dividend, r = required return, g = constant growth rate. Only valid when r > g and the firm pays dividends.'},
-  {topic:'Equity',q:'Difference between P/E, P/B, and P/S multiples?',a:'<strong>P/E:</strong> Price per earnings — most widely used. <strong>P/B:</strong> Price per book value — good for banks/financials. <strong>P/S:</strong> Price per sales — useful for loss-making or cyclical firms.'},
-  {topic:'Fixed Income',q:'What is the relationship between bond price and yield?',a:'Inverse relationship: when yields rise, prices fall (and vice versa). Longer duration bonds are MORE sensitive. The price-yield relationship is convex, not linear.'},
-  {topic:'Fixed Income',q:'Define Modified Duration.',a:'ModDur ≈ % change in bond price for a 1% change in yield. If ModDur = 5, a 1% yield increase → price decreases ~5%. Macaulay Duration is the weighted average time to receive cash flows.'},
-  {topic:'Fixed Income',q:'What is convexity and why does it matter?',a:'Convexity captures the curvature of the price-yield curve. Positive convexity means bonds gain MORE when yields fall than they lose when yields rise — always beneficial to the holder.'},
-  {topic:'Derivatives',q:'What is put-call parity?',a:'C + PV(X) = P + S₀ for European options on non-dividend-paying stock. C = call, P = put, X = strike, S₀ = spot price, PV(X) = present value of the strike price.'},
-  {topic:'Derivatives',q:'What are the 5 option Greeks?',a:'<strong>Delta:</strong> sensitivity to underlying price. <strong>Gamma:</strong> delta\'s rate of change. <strong>Vega:</strong> sensitivity to volatility. <strong>Theta:</strong> time decay. <strong>Rho:</strong> sensitivity to interest rates.'},
-  {topic:'Portfolio',q:'CML vs SML — key difference?',a:'<strong>CML:</strong> uses total risk (σ), applies ONLY to efficient portfolios. <strong>SML:</strong> uses systematic risk (beta), applies to ALL individual assets and portfolios in CAPM equilibrium.'},
-  {topic:'Portfolio',q:'What is the Sharpe Ratio?',a:'Sharpe = (Rp − Rf) / σp. Measures excess return per unit of <strong>total risk</strong>. Higher is better. Used to compare portfolios on a risk-adjusted basis.'},
-  {topic:'Portfolio',q:'Treynor Ratio vs Sharpe Ratio — key difference?',a:'Treynor = (Rp − Rf) / βp uses <strong>systematic risk (beta)</strong>. Sharpe uses total risk (σ). Use Treynor when evaluating a portfolio that is part of a larger diversified whole.'},
+const CARDS=[
+  {t:'Ethics',q:'What are the 6 components of the CFA Institute Code of Ethics?',a:'(1) Integrity, competence, diligence, respect. (2) Place client interests before your own. (3) Practice independently. (4) Maintain capital market integrity. (5) Maintain investment competence. (6) Promote the integrity of the profession.'},
+  {t:'Ethics',q:'Standard I(B) Independence and Objectivity — what does it require?',a:'Members must use reasonable care to achieve and maintain independence. Do <strong>not</strong> offer, solicit, or accept gifts/compensation that could compromise independence or create a conflict of interest.'},
+  {t:'Ethics',q:'What is "mosaic theory" under the CFA Standards?',a:'Combining material <em>nonpublic</em> information with public data to reach a conclusion. The conclusion is <strong>not a violation</strong> as long as no single piece of information is both material AND nonpublic.'},
+  {t:'Ethics',q:'Standard VI(B) Priority of Transactions — what is the correct order?',a:'<strong>Clients first</strong>, then employer, then personal accounts. Avoid front-running. IPO allocations go to clients before the manager\'s personal account.'},
+  {t:'Ethics',q:'Define the Prudent Investor Rule.',a:'A fiduciary must invest as a <strong>prudent investor</strong> would — considering the entire portfolio, risk/return objectives, and the long-term goals of the beneficiary.'},
+  {t:'Quant',q:'What distinguishes EAR from APR?',a:'APR is the nominal rate, unadjusted for compounding. <strong>EAR = (1 + r/m)ᵐ − 1</strong>. EAR reflects the true return after compounding and is the correct basis for comparison.'},
+  {t:'Quant',q:'Type I vs Type II errors — define each.',a:'<strong>Type I (α):</strong> Rejecting a true null — a false positive. <strong>Type II (β):</strong> Failing to reject a false null — a false negative. Statistical Power = 1 − β.'},
+  {t:'Quant',q:'State the Central Limit Theorem.',a:'For samples n ≥ 30, the distribution of the sample mean is approximately normal with mean μ and standard error <strong>σ/√n</strong>, regardless of the population\'s underlying distribution.'},
+  {t:'Quant',q:'What is a p-value?',a:'The smallest significance level at which H₀ can be rejected. <strong>If p &lt; α, reject H₀.</strong> A smaller p-value indicates stronger evidence against the null.'},
+  {t:'Economics',q:'What shifts the aggregate demand curve?',a:'Changes in: <strong>C</strong> (consumer wealth/expectations), <strong>I</strong> (business investment), <strong>G</strong> (government spending), <strong>NX</strong> (net exports). Also: money supply, exchange rates, and interest rate expectations.'},
+  {t:'Economics',q:'What is the J-curve effect in trade?',a:'After currency depreciation the trade balance initially <strong>worsens</strong> because import/export quantities are inelastic in the short run, before improving as volumes adjust. The path traces a J.'},
+  {t:'FRA',q:'LIFO vs FIFO in rising prices — which gives higher net income?',a:'<strong>FIFO</strong> → higher net income (lower COGS, higher closing inventory). <strong>LIFO</strong> → lower net income but lower taxes and higher cash flow. LIFO is <strong>banned under IFRS</strong>.'},
+  {t:'FRA',q:'What is the Quick Ratio?',a:'Quick Ratio = <strong>(Cash + Short-term securities + Receivables) / Current Liabilities</strong>. Measures short-term solvency without relying on inventory liquidation.'},
+  {t:'FRA',q:'Name the four core financial statements.',a:'(1) <strong>Income Statement</strong>: revenues/expenses over a period. (2) <strong>Balance Sheet</strong>: assets/liabilities/equity at a point in time. (3) <strong>Cash Flow Statement</strong>. (4) <strong>Statement of Changes in Equity</strong>.'},
+  {t:'Equity',q:'What are the three forms of market efficiency?',a:'<strong>Weak:</strong> prices reflect all past trading data. <strong>Semi-strong:</strong> all public information. <strong>Strong:</strong> all public and private information. Anomalies challenge the semi-strong form.'},
+  {t:'Equity',q:'Gordon Growth Model — state the formula.',a:'<strong>P₀ = D₁ / (r − g)</strong> — D₁ = next expected dividend, r = required return, g = sustainable growth rate. Only valid when r &gt; g.'},
+  {t:'Fixed Income',q:'Describe the bond price–yield relationship.',a:'<strong>Inverse</strong>: when yields rise, prices fall. Longer duration bonds are more sensitive. The relationship is <strong>convex</strong> — prices rise more for a yield fall than they fall for an equal yield rise.'},
+  {t:'Fixed Income',q:'What does Modified Duration measure?',a:'ModDur ≈ <strong>% change in bond price per 1% change in yield</strong>. A ModDur of 5 means a 1% yield increase → approximately 5% price decline.'},
+  {t:'Fixed Income',q:'What is convexity and why is it desirable?',a:'Convexity captures the <strong>curvature</strong> of the price-yield relationship. Positive convexity means prices rise more when yields fall than they fall when yields rise by the same amount — always beneficial to the holder.'},
+  {t:'Derivatives',q:'State put-call parity.',a:'<strong>C + PV(X) = P + S₀</strong> — for European options on a non-dividend-paying stock. Arbitrage enforces this relationship; deviations create risk-free profits.'},
+  {t:'Derivatives',q:'Name the five option Greeks.',a:'<strong>Delta:</strong> price sensitivity to underlying. <strong>Gamma:</strong> rate of change of delta. <strong>Vega:</strong> sensitivity to implied volatility. <strong>Theta:</strong> time decay. <strong>Rho:</strong> sensitivity to risk-free rate.'},
+  {t:'Portfolio',q:'CML vs SML — key distinction.',a:'<strong>CML</strong> uses total risk (σ) as the x-axis and applies only to efficient portfolios. <strong>SML</strong> uses systematic risk (β) and applies to ALL assets and portfolios in CAPM equilibrium.'},
+  {t:'Portfolio',q:'Sharpe Ratio — formula and meaning.',a:'Sharpe = <strong>(Rp − Rf) / σp</strong>. Measures excess return per unit of total risk. Higher is better. Appropriate when comparing standalone portfolios.'},
+  {t:'Portfolio',q:'Treynor Ratio vs Sharpe Ratio.',a:'Treynor = <strong>(Rp − Rf) / βp</strong> — uses systematic risk (β). Sharpe uses total risk (σ). Use Treynor when the portfolio is <em>one component</em> of a larger diversified portfolio.'},
 ];
 
-const FORMULAS = [
-  {topic:'Quant',col:'#7c3aed',name:'Future Value',expr:'FV = PV × (1 + r)ⁿ',note:'r = periodic rate, n = number of periods'},
-  {topic:'Quant',col:'#7c3aed',name:'Effective Annual Rate (EAR)',expr:'EAR = (1 + r/m)ᵐ − 1',note:'m = compounding periods per year'},
-  {topic:'Quant',col:'#7c3aed',name:'Portfolio Variance (2-asset)',expr:'σ²p = w₁²σ₁² + w₂²σ₂²\n    + 2w₁w₂Cov(1,2)',note:'Cov(1,2) = ρ₁₂ · σ₁ · σ₂'},
-  {topic:'Quant',col:'#7c3aed',name:'Coefficient of Variation',expr:'CV = σ / x̄',note:'Risk per unit of return. Lower = better efficiency'},
-  {topic:'Quant',col:'#7c3aed',name:'Bayes\' Formula',expr:'P(A|B) = P(B|A) × P(A) / P(B)',note:'Updates prior probability given new evidence'},
-  {topic:'FRA',col:'#b45309',name:'Current Ratio',expr:'Current Ratio = Current Assets\n              / Current Liabilities',note:'Measures short-term liquidity'},
-  {topic:'FRA',col:'#b45309',name:'Return on Equity (DuPont)',expr:'ROE = Net Margin × Asset Turnover\n    × Equity Multiplier',note:'= (NI/Sales) × (Sales/Assets) × (Assets/Equity)'},
-  {topic:'FRA',col:'#b45309',name:'Days Sales Outstanding',expr:'DSO = (Receivables / Revenue) × 365',note:'Lower DSO = faster collection cycle'},
-  {topic:'Equity',col:'#be185d',name:'Gordon Growth Model',expr:'P₀ = D₁ / (r − g)',note:'D₁ = expected dividend, r = required return, g = growth'},
-  {topic:'Equity',col:'#be185d',name:'Price/Earnings Ratio',expr:'P/E = Price per Share / EPS',note:'Use trailing (historical) or forward (expected) EPS'},
-  {topic:'Fixed Income',col:'#0369a1',name:'Bond Price',expr:'P = Σ[C/(1+y)ᵗ] + FV/(1+y)ⁿ',note:'C = coupon, y = yield per period, FV = face value'},
-  {topic:'Fixed Income',col:'#0369a1',name:'Modified Duration',expr:'ModDur = MacDur / (1 + y/m)',note:'m = periods per year; MacDur = Macaulay duration'},
-  {topic:'Fixed Income',col:'#0369a1',name:'Duration Price Approximation',expr:'ΔP/P ≈ −ModDur × Δy',note:'% price change ≈ −Duration × yield change'},
-  {topic:'Fixed Income',col:'#0369a1',name:'Convexity Adjustment',expr:'ΔP/P ≈ −D·Δy + ½·C·(Δy)²',note:'C = convexity; positive convexity benefits the holder'},
-  {topic:'Derivatives',col:'#6d28d9',name:'Put-Call Parity',expr:'C + PV(X) = P + S₀',note:'European options, non-dividend-paying stock'},
-  {topic:'Derivatives',col:'#6d28d9',name:'Forward Price',expr:'F₀ = S₀ × (1 + r)ᵀ',note:'No dividends or carrying costs. Adjust for carry.'},
-  {topic:'Portfolio',col:'#92400e',name:'Sharpe Ratio',expr:'Sharpe = (Rp − Rf) / σp',note:'Excess return per unit of total risk'},
-  {topic:'Portfolio',col:'#92400e',name:'CAPM',expr:'E(Ri) = Rf + β × [E(Rm) − Rf]',note:'β = Cov(i,m)/Var(m). Risk premium = E(Rm)−Rf'},
-  {topic:'Portfolio',col:'#92400e',name:'Jensen\'s Alpha',expr:'α = Rp − [Rf + β(Rm − Rf)]',note:'Actual return minus CAPM-predicted return'},
-  {topic:'Portfolio',col:'#92400e',name:'Treynor Ratio',expr:'Treynor = (Rp − Rf) / βp',note:'Excess return per unit of systematic risk (beta)'},
+const FORMULAS=[
+  {t:'Quant',c:'#4c1d95',n:'Future Value',f:'FV = PV × (1 + r)ⁿ',note:'r = periodic rate, n = number of periods'},
+  {t:'Quant',c:'#4c1d95',n:'Effective Annual Rate',f:'EAR = (1 + r/m)ᵐ − 1',note:'m = compounding periods per year'},
+  {t:'Quant',c:'#4c1d95',n:'Portfolio Variance (2-asset)',f:'σ²p = w₁²σ₁² + w₂²σ₂²\n    + 2w₁w₂ρ₁₂σ₁σ₂',note:'ρ₁₂ = correlation; Cov(1,2) = ρσ₁σ₂'},
+  {t:'Quant',c:'#4c1d95',n:'Coefficient of Variation',f:'CV = σ / x̄',note:'Risk per unit of return. Lower CV = more efficient.'},
+  {t:'Quant',c:'#4c1d95',n:"Bayes' Formula",f:'P(A|B) = P(B|A)·P(A) / P(B)',note:'Updates prior probability given new evidence'},
+  {t:'FRA',c:'#92400e',n:'Current Ratio',f:'Current Ratio\n  = Current Assets / Current Liabilities',note:'Basic short-term liquidity measure'},
+  {t:'FRA',c:'#92400e',n:'DuPont ROE',f:'ROE = Net Margin × Asset Turnover\n    × Equity Multiplier',note:'= (NI/Sales)(Sales/Assets)(Assets/Equity)'},
+  {t:'FRA',c:'#92400e',n:'Days Sales Outstanding',f:'DSO = (Receivables / Revenue) × 365',note:'Lower DSO = faster collections cycle'},
+  {t:'Equity',c:'#831843',n:'Gordon Growth Model',f:'P₀ = D₁ / (r − g)',note:'Expected dividend / (required return − growth)'},
+  {t:'Equity',c:'#831843',n:'Justified P/E',f:'P/E = Payout Ratio / (r − g)',note:'Leading P/E uses forward EPS estimates'},
+  {t:'Fixed Income',c:'#1e3a8a',n:'Bond Price',f:'P = Σ[C/(1+y)ᵗ] + FV/(1+y)ⁿ',note:'C = coupon, y = yield/period, FV = face value'},
+  {t:'Fixed Income',c:'#1e3a8a',n:'Modified Duration',f:'ModDur = MacDur / (1 + y/m)',note:'m = periods/year. Use for price sensitivity.'},
+  {t:'Fixed Income',c:'#1e3a8a',n:'Price Change (with Convexity)',f:'ΔP/P ≈ −D·Δy + ½·Cvx·(Δy)²',note:'Convexity corrects duration\'s linear error'},
+  {t:'Fixed Income',c:'#1e3a8a',n:'OAS vs Z-Spread',f:'OAS = Z-spread − Option Value',note:'Use OAS for callable bonds; Z-spread for bullets'},
+  {t:'Derivatives',c:'#3b0764',n:'Put-Call Parity',f:'C + PV(X) = P + S₀',note:'European options; non-dividend-paying stock'},
+  {t:'Derivatives',c:'#3b0764',n:'Forward Price',f:'F₀ = S₀ × (1 + r)ᵀ',note:'Adjust for dividends, coupons, or storage costs'},
+  {t:'Portfolio',c:'#78350f',n:'Sharpe Ratio',f:'Sharpe = (Rp − Rf) / σp',note:'Excess return per unit of total (σ) risk'},
+  {t:'Portfolio',c:'#78350f',n:'CAPM',f:'E(Ri) = Rf + β[E(Rm) − Rf]',note:'β = Cov(i,m)/Var(m); market risk premium = E(Rm)−Rf'},
+  {t:'Portfolio',c:'#78350f',n:"Jensen's Alpha",f:'α = Rp − [Rf + β(Rm − Rf)]',note:'Positive α = outperformed CAPM expectation'},
+  {t:'Portfolio',c:'#78350f',n:'Treynor Ratio',f:'Treynor = (Rp − Rf) / βp',note:'Excess return per unit of systematic (β) risk'},
 ];
 
-const QUESTIONS = [
-  {topic:'Ethics',col:'#1a56db',q:'A portfolio manager receives a $500 gift from a client as thanks for strong performance. According to CFA Standards, the manager should MOST LIKELY:',opts:['Decline the gift immediately','Accept the gift and disclose to the employer','Accept — gifts from clients do not need disclosure','Report the gift to the CFA Institute'],ans:1,exp:'Standard IV(B) Loyalty requires disclosure of gifts that may compromise independence. The manager should disclose to the employer but need not necessarily decline.'},
-  {topic:'Quant',col:'#7c3aed',q:'An investor deposits $10,000 at 8% compounded quarterly. The effective annual rate (EAR) is CLOSEST to:',opts:['8.00%','8.16%','8.24%','8.32%'],ans:2,exp:'EAR = (1 + 0.08/4)⁴ − 1 = (1.02)⁴ − 1 = 1.08243 − 1 = 8.24%'},
-  {topic:'FRA',col:'#b45309',q:'Under IFRS, which inventory cost method is NOT permitted?',opts:['FIFO','Weighted average cost','LIFO','Specific identification'],ans:2,exp:'LIFO is prohibited under IFRS (IAS 2). It is allowed under US GAAP. FIFO, weighted average, and specific identification are permitted under both frameworks.'},
-  {topic:'Equity',col:'#be185d',q:'Under the semi-strong form of market efficiency, which strategy should NOT generate consistent excess returns?',opts:['Trading on insider information','Technical analysis based on past prices','Fundamental analysis using public financial data','Both B and C'],ans:3,exp:'Semi-strong form states all public information is already priced in. Both historical price patterns (weak form) and public fundamentals are incorporated, so neither B nor C should consistently outperform.'},
-  {topic:'Fixed Income',col:'#0369a1',q:'A bond has modified duration 6.5 and convexity 60. If yields rise 50 bps, the approximate % price change is CLOSEST to:',opts:['-3.18%','-3.10%','-3.25%','-3.04%'],ans:0,exp:'ΔP/P ≈ −6.5×0.005 + 0.5×60×(0.005)² = −0.0325 + 0.00075 = −0.03175 ≈ −3.18%'},
-  {topic:'Ethics',col:'#1a56db',q:'Standard III(A) Loyalty, Prudence and Care requires members to place whose interests first?',opts:['CFA Institute','The employer','The client','Society at large'],ans:2,exp:'Standard III(A) explicitly requires acting in the best interests of clients and placing client interests before employer or personal interests.'},
-  {topic:'Quant',col:'#7c3aed',q:'A hypothesis test yields a p-value of 0.03. At a 5% significance level, which conclusion is MOST appropriate?',opts:['Fail to reject H₀ because 0.03 < 0.05','Reject H₀ because 0.03 < 0.05','Fail to reject H₀ because p is small','Accept H₁ with 97% confidence'],ans:1,exp:'When p-value (0.03) < significance level (0.05), we reject H₀. We never "accept" H₁ — we only reject or fail to reject H₀.'},
-  {topic:'Fixed Income',col:'#0369a1',q:'Two bonds have identical maturity and coupon. Bond A is callable; Bond B is option-free. Which has HIGHER convexity?',opts:['Bond A (callable)','Bond B (option-free)','They have equal convexity','Depends on credit rating'],ans:1,exp:'Callable bonds exhibit negative convexity at low yields (issuer calls when rates fall, capping price upside). Option-free bonds always have positive convexity, which is preferable.'},
-  {topic:'Portfolio',col:'#92400e',q:'The CML differs from the SML in that the CML:',opts:['Uses beta as the risk measure','Only applies to efficient portfolios','Applies to all individual assets','Is derived from the risk-free rate only'],ans:1,exp:'The CML uses total risk (σ) and applies ONLY to efficient portfolios on the efficient frontier. The SML uses systematic risk (beta) and applies to ALL assets and portfolios.'},
-  {topic:'Economics',col:'#0891b2',q:'An increase in the money supply by the central bank will MOST likely initially:',opts:['Increase interest rates and decrease investment','Decrease interest rates and increase investment','Decrease interest rates and decrease investment','Increase interest rates and increase investment'],ans:1,exp:'Expansionary monetary policy (↑ money supply) → ↓ interest rates (liquidity effect) → ↑ investment → ↑ aggregate demand. This is the standard monetary transmission mechanism.'},
-  {topic:'FRA',col:'#b45309',q:'A company switches from FIFO to weighted-average cost in a period of rising prices. This will MOST likely:',opts:['Increase net income and increase inventory','Decrease net income and decrease inventory','Increase net income and decrease inventory','Decrease net income and increase inventory'],ans:1,exp:'In rising prices: weighted-average COGS > FIFO COGS → lower net income. Weighted-average ending inventory < FIFO ending inventory → lower balance sheet inventory.'},
-  {topic:'Derivatives',col:'#6d28d9',q:'According to put-call parity, if a call option is overpriced relative to the equivalent put, an arbitrageur should:',opts:['Buy the call and sell the put','Sell the call, buy the put, buy stock, borrow PV(X)','Buy the call, sell the put, and short the stock','Sell the call, buy the put, short stock, lend PV(X)'],ans:1,exp:'If C is overpriced, sell C and replicate it synthetically: buy P, buy S₀, borrow PV(X). This creates a risk-free profit from the mispricing.'},
-  {topic:'Quant',col:'#7c3aed',q:'The correlation between Asset X and Y is −0.3. Adding Y to a portfolio of only X will MOST likely:',opts:['Increase portfolio risk','Decrease portfolio risk','Not change portfolio risk','Double portfolio variance'],ans:1,exp:'Negative correlation means Y partially offsets X\'s movements. Adding Y introduces diversification benefits that reduce overall portfolio variance, as long as correlation < 1.'},
-  {topic:'Equity',col:'#be185d',q:'All else equal, which would MOST likely decrease a stock\'s P/E ratio?',opts:['Decrease in required return','Increase in expected earnings growth','Increase in dividend payout ratio','Increase in required return'],ans:3,exp:'From DDM: P/E = payout ratio / (r − g). An increase in required return r ↑ the denominator → P/E ↓. Decrease in r or increase in g/payout would raise P/E.'},
-  {topic:'Portfolio',col:'#92400e',q:'Which of the following is TRUE about Jensen\'s Alpha?',opts:['Positive alpha means the manager underperformed CAPM expectations','Positive alpha means the manager outperformed CAPM expectations','Alpha measures total risk, not systematic risk','Alpha is equal to the Sharpe ratio when beta = 1'],ans:1,exp:'Jensen\'s Alpha = Rp − [Rf + β(Rm − Rf)]. A positive alpha indicates the portfolio earned more than predicted by CAPM given its beta — i.e., outperformance on a risk-adjusted basis.'},
+const QUESTIONS=[
+  {t:'Ethics',c:'#0d1b2a',q:'A portfolio manager receives a $500 gift from a client as thanks for strong performance. Under CFA Standards, the manager should MOST LIKELY:',o:['Decline the gift immediately','Accept and disclose the gift to their employer','Accept — gifts from clients never require disclosure','Report the gift directly to the CFA Institute'],a:1,e:'Standard IV(B) Loyalty requires disclosure to the employer of any gift that could compromise independence or create a conflict of interest. Disclosure — not necessarily rejection — is the primary requirement.'},
+  {t:'Quant',c:'#4c1d95',q:'An investor deposits $10,000 at 8% compounded quarterly. The effective annual rate (EAR) is CLOSEST to:',o:['8.00%','8.16%','8.24%','8.32%'],a:2,e:'EAR = (1 + 0.08/4)⁴ − 1 = (1.02)⁴ − 1 = 0.08243 ≈ 8.24%. Quarterly compounding means m = 4.'},
+  {t:'FRA',c:'#92400e',q:'Under IFRS, which inventory costing method is NOT permitted?',o:['FIFO','Weighted average cost','LIFO','Specific identification'],a:2,e:'LIFO is prohibited under IFRS (IAS 2) but permitted under US GAAP. FIFO, weighted average, and specific identification are allowed under both frameworks.'},
+  {t:'Equity',c:'#831843',q:'Under semi-strong form efficiency, which strategy should NOT produce consistent excess returns?',o:['Trading on insider information','Technical analysis of past prices','Fundamental analysis of public financial data','Both B and C'],a:3,e:'Semi-strong form states all publicly available information is already priced in. Both technical analysis (weak form) and public fundamental analysis (semi-strong) should fail to produce consistent alpha.'},
+  {t:'Fixed Income',c:'#1e3a8a',q:'A bond has modified duration 6.5 and convexity 60. If yields rise 50 bps, the approximate % price change is CLOSEST to:',o:['-3.18%','-3.10%','-3.25%','-3.04%'],a:0,e:'ΔP/P ≈ −6.5×0.005 + ½×60×(0.005)² = −0.0325 + 0.00075 = −0.03175 ≈ −3.18%.'},
+  {t:'Ethics',c:'#0d1b2a',q:'Standard III(A) Loyalty, Prudence and Care requires members to place whose interests FIRST?',o:['CFA Institute','Their employer','Their client','Society at large'],a:2,e:'Standard III(A) explicitly requires acting in the best interests of clients, placing their interests ahead of the employer\'s or any personal interest.'},
+  {t:'Quant',c:'#4c1d95',q:'A hypothesis test yields p = 0.03. At a 5% significance level, the MOST appropriate conclusion is:',o:['Fail to reject H₀ because 0.03 < 0.05','Reject H₀ because 0.03 < 0.05','Fail to reject H₀ because p is very small','Accept H₁ with 97% confidence'],a:1,e:'When p (0.03) < α (0.05), we reject H₀. We never "accept" H₁ — we only reject or fail to reject H₀.'},
+  {t:'Fixed Income',c:'#1e3a8a',q:'Bond A is callable; Bond B is option-free. Identical maturity and coupon. Which has HIGHER convexity?',o:['Bond A (callable)','Bond B (option-free)','Both equal','Depends on credit rating'],a:1,e:'Callable bonds exhibit negative convexity at low yields — the issuer calls when rates fall, capping the price upside. Option-free bonds always have positive convexity.'},
+  {t:'Portfolio',c:'#78350f',q:'The CML differs from the SML in that the CML:',o:['Uses beta as its risk measure','Applies only to efficient portfolios','Applies to all individual assets','Is derived solely from the risk-free rate'],a:1,e:'CML uses total risk (σ) and applies ONLY to efficient portfolios. SML uses systematic risk (β) and applies to ALL assets and portfolios in equilibrium.'},
+  {t:'Economics',c:'#0e5f6e',q:'An increase in the money supply will MOST likely initially:',o:['Increase interest rates, decrease investment','Decrease interest rates, increase investment','Decrease interest rates, decrease investment','Increase interest rates, increase investment'],a:1,e:'Expansionary monetary policy → lower interest rates (liquidity effect) → higher investment → higher aggregate demand. Standard monetary transmission.'},
+  {t:'FRA',c:'#92400e',q:'Switching from FIFO to weighted-average cost in a period of rising prices will MOST likely:',o:['Increase net income and increase inventory','Decrease net income and decrease inventory','Increase net income and decrease inventory','Decrease net income and increase inventory'],a:1,e:'Rising prices: weighted-average COGS > FIFO COGS → lower net income. Weighted-average ending inventory < FIFO ending inventory.'},
+  {t:'Derivatives',c:'#3b0764',q:'If a call option is overpriced relative to an equivalent put (per put-call parity), an arbitrageur should:',o:['Buy the call and sell the put','Sell call, buy put, buy stock, borrow PV(X)','Buy call, sell put, short stock','Sell call, buy put, short stock, lend PV(X)'],a:1,e:'Sell the overpriced call and synthetically replicate it: buy put + buy stock + borrow PV(X). This generates a risk-free profit equal to the mispricing.'},
+  {t:'Quant',c:'#4c1d95',q:'Correlation between X and Y is −0.3. Adding Y to a portfolio of X alone will MOST likely:',o:['Increase portfolio risk','Decrease portfolio risk','Leave portfolio risk unchanged','Double portfolio variance'],a:1,e:'Negative correlation provides diversification benefits. Adding Y partially offsets X\'s movements, reducing overall portfolio variance as long as correlation < 1.'},
+  {t:'Equity',c:'#831843',q:'Which factor would MOST likely decrease a stock\'s P/E ratio?',o:['Lower required return','Higher expected growth rate','Higher dividend payout ratio','Higher required return'],a:3,e:'P/E = payout ratio / (r − g). An increase in r raises the denominator → P/E falls.'},
+  {t:'Portfolio',c:'#78350f',q:"Jensen's Alpha is BEST described as:",o:['Underperformance vs the CAPM prediction','Outperformance vs the CAPM prediction','Total risk per unit of return','Equal to Sharpe when β = 1'],a:1,e:'α = Rp − [Rf + β(Rm − Rf)]. Positive alpha means the portfolio earned more than the CAPM benchmark predicted for its level of systematic risk.'},
 ];
 
-const MODES = [
-  {id:'quick',icon:'⚡',title:'Quick Fire',desc:'10 questions · all topics'},
-  {id:'full',icon:'📋',title:'Full Session',desc:'15 questions · mixed'},
-  {id:'ethics',icon:'⚖️',title:'Ethics Focus',desc:'Ethics & Standards only'},
-  {id:'quant',icon:'📐',title:'Quant Focus',desc:'Quantitative Methods'},
-  {id:'fra',icon:'📊',title:'FRA Focus',desc:'Financial Reporting'},
-  {id:'fi',icon:'💰',title:'Fixed Income',desc:'Bonds & yield analysis'},
+const MODES=[
+  {id:'quick', e:'⚡', t:'Quick Fire',   d:'10 questions · all topics'},
+  {id:'full',  e:'📋', t:'Full Sitting', d:'15 questions · mixed'},
+  {id:'eth',   e:'⚖️', t:'Ethics Focus', d:'Ethics & Standards only'},
+  {id:'qnt',   e:'📐', t:'Quant Methods',d:'Quantitative only'},
+  {id:'fra',   e:'📊', t:'Financial Rep.',d:'FRA questions only'},
+  {id:'fxi',   e:'💰', t:'Fixed Income',  d:'Bonds & yield analysis'},
 ];
 
-/* ══════════════ STATE ══════════════ */
-let S = JSON.parse(localStorage.getItem('cfa2') || 'null') || {
+/* ════ STATE ════ */
+let S = JSON.parse(localStorage.getItem('cfa_ledger_v3') || 'null') || {
   subs:{}, xp:0, cards:0, correct:0, attempted:0, studySec:0,
-  streak:0, lastDate:null, fs:{again:0,hard:0,good:0,easy:0}
+  streak:0, lastDate:null,
+  fs:{again:0, hard:0, good:0, easy:0},
+  hardCards:[], practiceByTopic:{},
 };
+function save(){ localStorage.setItem('cfa_ledger_v3', JSON.stringify(S)); }
+function xp(n){ S.xp += n; document.getElementById('hXP').textContent = S.xp; save(); }
 
-function save(){ localStorage.setItem('cfa2', JSON.stringify(S)); }
-function addXP(n){ S.xp+=n; document.getElementById('xpVal').textContent=S.xp; save(); }
+/* ════ TICKER ════ */
+function buildTicker(){
+  const seg = TOPICS.map(t=>{
+    const tot=t.s.length, done=t.s.filter((_,i)=>S.subs[t.id+'_'+i]==='done').length;
+    const pct=tot?Math.round(done/tot*100):0;
+    return `<div class="t-item"><span class="t-sym">${t.id.toUpperCase()}</span><span class="t-val">${pct}%</span><span class="t-chg">${done}/${tot}</span></div>`;
+  }).join('');
+  document.getElementById('tickerBelt').innerHTML = seg+seg;
+}
 
-/* ══════════════ NAV ══════════════ */
+/* ════ NAV ════ */
+const NAV_MAP = {dash:0,flash:1,form:2,mock:3,ana:4,timer:5};
 function go(id){
-  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
-  document.getElementById('view-'+id).classList.add('active');
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  document.querySelectorAll('.mob-nav-btn').forEach(b=>b.classList.remove('active'));
-  const map={dashboard:0,flashcards:1,formulas:2,practice:3,timer:4};
-  document.querySelectorAll('.nav-btn')[map[id]]?.classList.add('active');
-  document.querySelectorAll('.mob-nav-btn')[map[id]]?.classList.add('active');
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.getElementById('view-'+id).classList.add('on');
+  document.querySelectorAll('.mn').forEach((b,i)=>b.classList.toggle('on', i===NAV_MAP[id]));
+  document.querySelectorAll('.mb-btn').forEach((b,i)=>b.classList.toggle('on', i===NAV_MAP[id]));
+  if(id==='ana') renderAnalytics();
 }
 
-/* ══════════════ DASHBOARD ══════════════ */
-function buildTopics(){
-  const g = document.getElementById('topicsGrid');
-  g.innerHTML = '';
+/* ════ DASHBOARD ════ */
+document.getElementById('todayDate').textContent =
+  new Date().toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'long',year:'numeric'});
+
+function buildLedger(){
+  const tbody = document.getElementById('ledgerBody');
+  tbody.innerHTML = '';
   TOPICS.forEach(t=>{
-    const total = t.subs.length;
-    const done  = t.subs.filter((_,i)=>S.subs[t.id+'_'+i]==='done').length;
-    const pct   = total ? Math.round(done/total*100) : 0;
-
-    const card = document.createElement('div');
-    card.className = 'topic-card';
-    card.id = 'tc_'+t.id;
-
-    const rows = t.subs.map((s,i)=>{
-      const k = t.id+'_'+i;
-      const isDone = S.subs[k]==='done';
-      return `<div class="subtopic-row${isDone?' done':''}" onclick="toggleSub('${k}',event)">
-        <div class="check-box">${isDone?'✓':''}</div>
-        <div class="sub-name">${s}</div>
-      </div>`;
-    }).join('');
-
-    card.innerHTML = `
-      <div class="topic-header" onclick="openCard('${t.id}')">
-        <div class="topic-icon-wrap" style="background:${t.col}18">
-          <span style="font-size:20px">${t.icon}</span>
-        </div>
-        <div class="topic-meta">
-          <div class="topic-name">${t.name}</div>
-          <div class="topic-weight">${t.weight} · ${total} readings</div>
-        </div>
-        <div class="topic-right">
-          <div class="topic-pct" style="color:${t.col}">${pct}%</div>
-          <div class="chevron">▼</div>
-        </div>
-      </div>
-      <div class="topic-progress-row">
-        <div class="progress-bar">
-          <div class="progress-fill" style="background:${t.col};width:${pct}%"></div>
-        </div>
-        <div class="topic-count">${done}/${total}</div>
-      </div>
-      <div class="subtopic-list">${rows}</div>
-    `;
-    g.appendChild(card);
+    const tot=t.s.length, done=t.s.filter((_,i)=>S.subs[t.id+'_'+i]==='done').length, pct=tot?Math.round(done/tot*100):0;
+    // Topic row
+    const tr = document.createElement('tr');
+    tr.className='lr'; tr.id='lr_'+t.id;
+    tr.innerHTML=`
+      <td><div class="lr-name-cell">
+        <div class="lr-ico" style="background:${t.c}18">${t.e}</div>
+        <span class="lr-name">${t.name}</span>
+        <span class="lr-chev">▶</span>
+      </div></td>
+      <td><span class="lr-wt">${t.w}</span></td>
+      <td><span class="lr-cnt">${tot} readings</span></td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div class="lr-bar"><div class="lr-bar-f" style="background:${t.c};width:${pct}%"></div></div>
+      </div></td>
+      <td class="r"><span class="lr-pct" style="color:${t.c}">${pct}%</span></td>`;
+    tr.onclick = ()=> toggleTopic(t.id);
+    tbody.appendChild(tr);
+    // Sub-rows group
+    const sg = document.createElement('tbody');
+    sg.className='sub-group'; sg.id='sg_'+t.id; sg.style.display='none';
+    t.s.forEach((s,i)=>{
+      const k=t.id+'_'+i, done=S.subs[k]==='done';
+      const sr=document.createElement('tr'); sr.className='sub-tr';
+      sr.innerHTML=`<td colspan="5"><div class="sub-inner${done?' done':''}" id="si_${k}" onclick="toggleSub('${k}',event)">
+        <div class="sub-box">${done?'✓':''}</div>
+        <div class="sub-lbl">${s}</div>
+      </div></td>`;
+      sg.appendChild(sr);
+    });
+    tbody.appendChild(sg);
   });
-  updateStats();
+  refreshStats();
+  buildTicker();
 }
 
-function openCard(id){
-  const c = document.getElementById('tc_'+id);
-  c.classList.toggle('open');
+function toggleTopic(id){
+  const tr=document.getElementById('lr_'+id), sg=document.getElementById('sg_'+id);
+  const wasOpen=tr.classList.contains('open');
+  document.querySelectorAll('.lr.open').forEach(r=>r.classList.remove('open'));
+  document.querySelectorAll('.sub-group').forEach(g=>g.style.display='none');
+  if(!wasOpen){ tr.classList.add('open'); sg.style.display=''; }
 }
 
-function toggleSub(key, e){
+function toggleSub(key,e){
   e.stopPropagation();
-  const isDone = S.subs[key]==='done';
-  S.subs[key] = isDone ? '' : 'done';
-  if(!isDone) addXP(5);
-  save();
-  buildTopics();
-  // reopen
-  const topicId = key.split('_')[0];
-  document.getElementById('tc_'+topicId)?.classList.add('open');
+  const isDone=S.subs[key]==='done';
+  S.subs[key]=isDone?'':'done';
+  if(!isDone) xp(5);
+  save(); buildLedger();
+  const tid=key.split('_')[0];
+  document.getElementById('lr_'+tid)?.classList.add('open');
+  const sg=document.getElementById('sg_'+tid);
+  if(sg) sg.style.display='';
 }
 
-function updateStats(){
-  const allS = TOPICS.reduce((a,t)=>a+t.subs.length,0);
-  const doneS = Object.values(S.subs).filter(v=>v==='done').length;
-  const pct = allS ? Math.round(doneS/allS*100) : 0;
-
-  document.getElementById('s-pct').textContent = pct+'%';
-  document.getElementById('s-done').textContent = doneS+' / '+allS+' readings done';
-  document.getElementById('s-bar').style.width = pct+'%';
-
-  document.getElementById('s-cards').textContent = S.cards;
-  document.getElementById('s-cbar').style.width = Math.min(S.cards/CARDS.length*100,100)+'%';
-
+function refreshStats(){
+  const allS=TOPICS.reduce((a,t)=>a+t.s.length,0);
+  const doneS=Object.values(S.subs).filter(v=>v==='done').length;
+  const pct=allS?Math.round(doneS/allS*100):0;
+  document.getElementById('dPct').textContent=pct+'%';
+  document.getElementById('dDone').textContent=doneS+' of '+allS+' readings';
+  document.getElementById('dBar').style.width=pct+'%';
+  document.getElementById('dCards').textContent=S.cards;
+  document.getElementById('dCBar').style.width=Math.min(S.cards/CARDS.length*100,100)+'%';
   if(S.attempted>0){
-    document.getElementById('s-score').textContent = Math.round(S.correct/S.attempted*100)+'%';
-    document.getElementById('s-qs').textContent = S.attempted+' questions attempted';
+    document.getElementById('dScore').textContent=Math.round(S.correct/S.attempted*100)+'%';
+    document.getElementById('dQsub').textContent=S.attempted+' questions attempted';
   }
-
   const h=Math.floor(S.studySec/3600), m=Math.floor((S.studySec%3600)/60);
-  document.getElementById('s-time').textContent = h>0?h+'h '+m+'m':m+'m';
-  document.getElementById('xpVal').textContent = S.xp;
-  document.getElementById('streakVal').textContent = S.streak;
+  document.getElementById('dTime').textContent=h>0?h+'h '+m+'m':m+'m';
+  document.getElementById('hXP').textContent=S.xp;
+  document.getElementById('hStreak').textContent=S.streak;
+  document.getElementById('hDone').textContent=pct+'%';
 }
 
-function markAllDone(){
-  TOPICS.forEach(t=>t.subs.forEach((_,i)=>{ S.subs[t.id+'_'+i]='done'; }));
-  S.xp = Math.max(S.xp, 500); save(); buildTopics();
+function markAll(){
+  TOPICS.forEach(t=>t.s.forEach((_,i)=>{S.subs[t.id+'_'+i]='done';}));
+  S.xp=Math.max(S.xp,500); save(); buildLedger();
 }
-
 function resetAll(){
   if(!confirm('Reset all progress? This cannot be undone.')) return;
-  S = {subs:{},xp:0,cards:0,correct:0,attempted:0,studySec:0,streak:S.streak,lastDate:S.lastDate,fs:{again:0,hard:0,good:0,easy:0}};
-  save(); buildTopics();
+  S={subs:{},xp:0,cards:0,correct:0,attempted:0,studySec:0,streak:S.streak,lastDate:S.lastDate,fs:{again:0,hard:0,good:0,easy:0},hardCards:[],practiceByTopic:{}};
+  save(); buildLedger();
 }
 
-/* ══════════════ FLASHCARDS ══════════════ */
-let fDeck=[...CARDS], fIdx=0, fFlipped=false, fFilter='All';
-
-function buildFilterList(){
-  const topics = ['All',...new Set(CARDS.map(c=>c.topic))];
-  const fl = document.getElementById('filterList');
-  fl.innerHTML = topics.map(t=>{
-    const cnt = t==='All'?CARDS.length:CARDS.filter(c=>c.topic===t).length;
-    return `<div class="filter-item${t==='All'?' active':''}" onclick="setFilter('${t}',this)">
-      ${t}<span class="filter-count">${cnt}</span></div>`;
+/* ════ FLASHCARDS ════ */
+let fDeck=[...CARDS], fIdx=0, fFlipped=false;
+function buildFilters(){
+  const topics=['All',...new Set(CARDS.map(c=>c.t))];
+  document.getElementById('filterList').innerHTML=topics.map(t=>{
+    const n=t==='All'?CARDS.length:CARDS.filter(c=>c.t===t).length;
+    return `<div class="flt-btn${t==='All'?' on':''}" onclick="setFilter('${t}',this)">${t}<span class="flt-n">${n}</span></div>`;
   }).join('');
 }
-
 function setFilter(t,el){
-  document.querySelectorAll('.filter-item').forEach(x=>x.classList.remove('active'));
-  el.classList.add('active');
-  fFilter = t;
-  fDeck = t==='All'?[...CARDS]:CARDS.filter(c=>c.topic===t);
-  fIdx = 0;
-  renderCard();
+  document.querySelectorAll('.flt-btn').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  fDeck=t==='All'?[...CARDS]:CARDS.filter(c=>c.t===t);
+  fIdx=0; renderCard();
 }
-
 function renderCard(){
-  const c = fDeck[fIdx];
-  if(!c) return;
-  const col = TOPICS.find(t=>t.id.toLowerCase()===c.topic.toLowerCase().replace(' ',''))?.col
-           || TOPICS.find(t=>c.topic.includes(t.name.split(' ')[0]))?.col || '#1a56db';
-  document.getElementById('cardQ').textContent = c.q;
-  document.getElementById('cardA').innerHTML = c.a;
-  document.getElementById('cardBadge').textContent = c.topic;
-  document.getElementById('cardBadgeB').textContent = c.topic;
-  document.getElementById('cardBadge').style.background = col;
-  document.getElementById('cardBadgeB').style.background = col;
-  document.getElementById('flashCounter').textContent = 'Card '+(fIdx+1)+' of '+fDeck.length;
-  const ci = document.getElementById('cardInner');
-  ci.classList.remove('flipped');
-  fFlipped = false;
-  document.getElementById('rateRow').classList.remove('show');
+  const c=fDeck[fIdx]; if(!c) return;
+  const col=TOPICS.find(tp=>c.t.toLowerCase().startsWith(tp.id.slice(0,3)))?.c||'#0d1b2a';
+  ['cTagF','cTagB'].forEach(id=>{
+    document.getElementById(id).textContent=c.t;
+    document.getElementById(id).style.background=col;
+  });
+  document.getElementById('cQ').textContent=c.q;
+  document.getElementById('cA').innerHTML=c.a;
+  document.getElementById('cardCtr').textContent='Card '+(fIdx+1)+' of '+fDeck.length;
+  document.getElementById('cardPivot').classList.remove('flipped');
+  fFlipped=false;
+  document.getElementById('rateRow').classList.remove('on');
 }
-
 function flipCard(){
-  const ci = document.getElementById('cardInner');
-  ci.classList.toggle('flipped');
-  fFlipped = !fFlipped;
-  document.getElementById('rateRow').classList.toggle('show', fFlipped);
-  if(fFlipped){ S.cards++; save(); updateStats(); }
+  document.getElementById('cardPivot').classList.toggle('flipped');
+  fFlipped=!fFlipped;
+  document.getElementById('rateRow').classList.toggle('on',fFlipped);
+  if(fFlipped){ S.cards++; save(); refreshStats(); }
 }
-
 function prevCard(){ fIdx=(fIdx-1+fDeck.length)%fDeck.length; renderCard(); }
 function nextCard(){ fIdx=(fIdx+1)%fDeck.length; renderCard(); }
-
-function rate(r){
+function rateCard(r){
   S.fs[r]++;
-  document.getElementById('st-'+r).textContent = S.fs[r];
-  if(r==='good'||r==='easy') addXP(2);
+  document.getElementById('r'+r.charAt(0).toUpperCase()+r.slice(1)).textContent=S.fs[r];
+  if(r==='again'||r==='hard'){
+    const c=fDeck[fIdx];
+    if(c&&!S.hardCards.some(h=>h.q===c.q&&h.r===r)){
+      S.hardCards.push({q:c.q,t:c.t,r});
+      if(S.hardCards.length>30) S.hardCards.shift();
+    }
+  }
+  if(r==='good'||r==='easy') xp(2);
   save(); nextCard();
 }
 
-/* ══════════════ FORMULAS ══════════════ */
-function buildFormulas(){
-  const g = document.getElementById('formulaGrid');
-  g.innerHTML = FORMULAS.map(f=>`
-    <div class="formula-card">
-      <span class="formula-tag" style="background:${f.col}">${f.topic}</span>
-      <div class="formula-name">${f.name}</div>
-      <div class="formula-expr">${f.expr}</div>
-      ${f.note?`<div class="formula-note">📌 ${f.note}</div>`:''}
+/* ════ FORMULARY ════ */
+function buildFormulary(){
+  document.getElementById('fmGrid').innerHTML=FORMULAS.map(f=>`
+    <div class="fm-cell">
+      <span class="fm-chip" style="background:${f.c}">${f.t}</span>
+      <div class="fm-name">${f.n}</div>
+      <div class="fm-body">${f.f}</div>
+      ${f.note?`<div class="fm-note">↳ ${f.note}</div>`:''}
     </div>`).join('');
 }
 
-/* ══════════════ PRACTICE ══════════════ */
-let pMode='quick', pQs=[], pIdx=0, pCorrect=0, pAnswered=false;
-
+/* ════ MOCK EXAM ════ */
+let examMode='quick', examQs=[], examIdx=0, examOk=0, examDone=false;
 function buildModes(){
-  document.getElementById('modeGrid').innerHTML = MODES.map(m=>`
-    <div class="mode-card${m.id==='quick'?' sel':''}" data-mode="${m.id}" onclick="selMode(this)">
-      <div class="mode-icon">${m.icon}</div>
-      <div class="mode-title">${m.title}</div>
-      <div class="mode-desc">${m.desc}</div>
+  document.getElementById('modeRack').innerHTML=MODES.map((m,i)=>`
+    <div class="mode-card${i===0?' sel':''}" data-id="${m.id}" onclick="pickMode(this)">
+      <div class="mode-ico">${m.e}</div>
+      <div class="mode-t">${m.t}</div>
+      <div class="mode-d">${m.d}</div>
     </div>`).join('');
 }
-
-function selMode(el){
+function pickMode(el){
   document.querySelectorAll('.mode-card').forEach(c=>c.classList.remove('sel'));
-  el.classList.add('sel');
-  pMode = el.dataset.mode;
+  el.classList.add('sel'); examMode=el.dataset.id;
 }
-
-function startTest(){
-  let pool = [...QUESTIONS];
-  if(pMode==='ethics') pool=pool.filter(q=>q.topic==='Ethics');
-  else if(pMode==='quant') pool=pool.filter(q=>q.topic==='Quant');
-  else if(pMode==='fra') pool=pool.filter(q=>q.topic==='FRA');
-  else if(pMode==='fi') pool=pool.filter(q=>q.topic==='Fixed Income');
-  // shuffle
-  for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
-  const n = pMode==='full'?Math.min(15,pool.length):Math.min(10,pool.length);
-  pQs=pool.slice(0,n); pIdx=0; pCorrect=0;
-  document.getElementById('practiceSetup').style.display='none';
-  document.getElementById('practiceResult').style.display='none';
-  document.getElementById('practiceQ').style.display='block';
+function startExam(){
+  let pool=[...QUESTIONS];
+  if(examMode==='eth') pool=pool.filter(q=>q.t==='Ethics');
+  else if(examMode==='qnt') pool=pool.filter(q=>q.t==='Quant');
+  else if(examMode==='fra') pool=pool.filter(q=>q.t==='FRA');
+  else if(examMode==='fxi') pool=pool.filter(q=>q.t==='Fixed Income');
+  for(let i=pool.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [pool[i],pool[j]]=[pool[j],pool[i]]; }
+  const n=examMode==='full'?Math.min(15,pool.length):Math.min(10,pool.length);
+  examQs=pool.slice(0,n); examIdx=0; examOk=0; examDone=false;
+  document.getElementById('mockSetup').style.display='none';
+  document.getElementById('mockResult').style.display='none';
+  document.getElementById('mockQ').style.display='block';
   renderQ();
 }
-
 function renderQ(){
-  if(pIdx>=pQs.length){showResult();return;}
-  pAnswered=false;
-  const q=pQs[pIdx];
-  const pct=((pIdx+1)/pQs.length*100).toFixed(0);
-  document.getElementById('qNumBadge').textContent='Q '+(pIdx+1)+' / '+pQs.length;
-  document.getElementById('qBar').style.width=pct+'%';
-  document.getElementById('qScoreBadge').textContent=pCorrect+' / '+pIdx;
-  document.getElementById('qTopicTag').textContent=q.topic;
-  document.getElementById('qTopicTag').style.background=q.col;
+  if(examIdx>=examQs.length){ showResult(); return; }
+  examDone=false;
+  const q=examQs[examIdx];
+  const pct=((examIdx+1)/examQs.length*100).toFixed(0);
+  document.getElementById('qLabel').textContent='Q '+(examIdx+1)+' / '+examQs.length;
+  document.getElementById('qFill').style.width=pct+'%';
+  document.getElementById('qScore').textContent='Score: '+examOk+'/'+examIdx;
+  document.getElementById('qTopic').textContent=q.t;
+  document.getElementById('qTopic').style.background=q.c;
   document.getElementById('qText').textContent=q.q;
-  document.getElementById('expBox').className='explanation';
+  document.getElementById('qExp').className='exp';
   document.getElementById('nextBtn').style.display='none';
-  const ow=document.getElementById('optsWrap');
-  ow.innerHTML=q.opts.map((o,i)=>`
+  document.getElementById('qOpts').innerHTML=q.o.map((o,i)=>`
     <div class="opt" onclick="pickOpt(${i})">
-      <div class="opt-ltr">${String.fromCharCode(65+i)}</div>
-      <div class="opt-txt">${o}</div>
+      <div class="o-ltr">${String.fromCharCode(65+i)}</div>
+      <div class="o-txt">${o}</div>
     </div>`).join('');
 }
-
 function pickOpt(i){
-  if(pAnswered) return;
-  pAnswered=true;
-  const q=pQs[pIdx];
-  const opts=document.querySelectorAll('.opt');
-  opts[q.ans].classList.add('correct');
-  if(i!==q.ans) opts[i].classList.add('wrong'); else {pCorrect++;addXP(5);}
-  const eb=document.getElementById('expBox');
-  eb.innerHTML='<strong>Explanation:</strong> '+q.exp;
-  eb.className='explanation show';
+  if(examDone) return; examDone=true;
+  const q=examQs[examIdx];
+  document.querySelectorAll('.opt')[q.a].classList.add('ok');
+  if(i!==q.a) document.querySelectorAll('.opt')[i].classList.add('bad');
+  else{ examOk++; xp(5); }
+  const ex=document.getElementById('qExp');
+  ex.innerHTML='<strong>Explanation:</strong> '+q.e;
+  ex.className='exp on';
   document.getElementById('nextBtn').style.display='block';
-  S.attempted++; S.correct+=(i===q.ans?1:0); save(); updateStats();
+  S.attempted++; S.correct+=(i===q.a?1:0);
+  if(!S.practiceByTopic[q.t]) S.practiceByTopic[q.t]={c:0,t:0};
+  S.practiceByTopic[q.t].t++;
+  if(i===q.a) S.practiceByTopic[q.t].c++;
+  save(); refreshStats();
 }
-
-function nextQ(){ pIdx++; renderQ(); }
-
+function nextQ(){ examIdx++; renderQ(); }
 function showResult(){
-  document.getElementById('practiceQ').style.display='none';
-  document.getElementById('practiceResult').style.display='block';
-  const sc=pQs.length?Math.round(pCorrect/pQs.length*100):0;
+  document.getElementById('mockQ').style.display='none';
+  document.getElementById('mockResult').style.display='block';
+  const sc=examQs.length?Math.round(examOk/examQs.length*100):0;
   document.getElementById('resScore').textContent=sc+'%';
-  document.getElementById('resCorrect').textContent=pCorrect+'/'+pQs.length;
-  document.getElementById('resXP').textContent='+'+(pCorrect*5);
-  document.getElementById('resEmoji').textContent=sc>=70?'🏆':sc>=50?'📚':'💪';
-  document.getElementById('resSub').textContent=sc>=70?'Excellent! You\'re on track for a passing score.':sc>=50?'Good effort — keep reviewing the weak areas.':'Review the material and try again. You\'ve got this!';
+  document.getElementById('resCorrect').textContent=examOk+'/'+examQs.length;
+  document.getElementById('resXP').textContent='+'+(examOk*5);
+  document.getElementById('resIcon').textContent=sc>=70?'🏆':sc>=50?'📚':'💪';
+  document.getElementById('resSub').textContent=sc>=70?'Excellent — passing threshold reached.':sc>=50?'Solid effort — review weak areas before retrying.':'Below passing mark — revisit material and retry.';
+}
+function abandonExam(){ document.getElementById('mockQ').style.display='none'; document.getElementById('mockSetup').style.display='block'; }
+function resetExam(){ document.getElementById('mockResult').style.display='none'; document.getElementById('mockSetup').style.display='block'; }
+
+/* ════ ANALYTICS ════ */
+function renderAnalytics(){
+  const allS=TOPICS.reduce((a,t)=>a+t.s.length,0);
+  const doneS=Object.values(S.subs).filter(v=>v==='done').length;
+  const pct=allS?Math.round(doneS/allS*100):0;
+  document.getElementById('anaR').textContent=pct+'%';
+  document.getElementById('anaC').textContent=S.cards;
+  document.getElementById('anaH').textContent=S.hardCards.length;
+  document.getElementById('anaS').textContent=S.attempted>0?Math.round(S.correct/S.attempted*100)+'%':'—';
+
+  // Attention list
+  const items=[];
+  TOPICS.forEach(t=>{
+    const tot=t.s.length, done=t.s.filter((_,i)=>S.subs[t.id+'_'+i]==='done').length, p=tot?done/tot:0;
+    if(p===0) items.push({cls:'urg',ico:'⚠️',title:`${t.name} — Not Started`,desc:`Zero readings completed. This topic accounts for ${t.w} of exam weight.`,chip:'Not Started',cc:'r'});
+    else if(p<0.4) items.push({cls:'wrn',ico:'📌',title:`${t.name} — Low Coverage`,desc:`Only ${Math.round(p*100)}% done (${done}/${tot} readings). Significant exam-weight exposure.`,chip:`${Math.round(p*100)}% done`,cc:'a'});
+  });
+  if(S.hardCards.length>0){
+    const topics=[...new Set(S.hardCards.map(c=>c.t))].slice(0,3).join(', ');
+    items.push({cls:'urg',ico:'🔴',title:`${S.hardCards.length} Card${S.hardCards.length>1?'s':''} Rated Hard or Again`,desc:`Affected topics: ${topics}. These should be reviewed daily in your final revision week.`,chip:'Needs Review',cc:'r'});
+  }
+  if(S.attempted>0&&S.correct/S.attempted<0.5)
+    items.push({cls:'urg',ico:'📉',title:'Practice Score Below 50%',desc:`Current accuracy: ${Math.round(S.correct/S.attempted*100)}%. CFA Level I pass mark ≈ 70%. Increase timed practice immediately.`,chip:'Below Target',cc:'r'});
+  Object.entries(S.practiceByTopic).forEach(([topic,d])=>{
+    if(d.t>=3&&d.c/d.t<0.5)
+      items.push({cls:'wrn',ico:'⚡',title:`Weak Area: ${topic}`,desc:`${d.c}/${d.t} correct (${Math.round(d.c/d.t*100)}%). Targeted revision for this subject is recommended.`,chip:`${Math.round(d.c/d.t*100)}% accuracy`,cc:'a'});
+  });
+  if(items.length===0)
+    items.push({cls:'ok',ico:'✅',title:'No Major Gaps Detected — Keep the Momentum',desc:'Continue regular review and maintain your study streak. Revisit after completing more practice sessions.',chip:'On Track',cc:'b'});
+
+  document.getElementById('attentionList').innerHTML=items.map(i=>`
+    <div class="attn-row">
+      <div class="attn-ico ${i.cls}">${i.ico}</div>
+      <div class="attn-body">
+        <div class="attn-title">${i.title}</div>
+        <div class="attn-desc">${i.desc}</div>
+        <span class="attn-chip ${i.cc}">${i.chip}</span>
+      </div>
+    </div>`).join('');
+
+  // Topic bars
+  document.getElementById('topicBars').innerHTML=TOPICS.map(t=>{
+    const tot=t.s.length, done=t.s.filter((_,i)=>S.subs[t.id+'_'+i]==='done').length, pct=tot?Math.round(done/tot*100):0;
+    return `<div class="tb-row">
+      <div class="tb-lbl">${t.name.split(' ').slice(0,2).join(' ')}</div>
+      <div class="tb-track"><div class="tb-fill" style="background:${t.c};width:${pct}%"></div></div>
+      <div class="tb-pct">${pct}%</div>
+    </div>`;
+  }).join('');
+
+  // Score by topic
+  const entries=Object.entries(S.practiceByTopic);
+  document.getElementById('scoreByTopic').innerHTML=entries.length===0
+    ?'<tr><td colspan="2" style="font-size:11px;color:var(--ink3);padding:8px 0">Complete practice questions to populate this table.</td></tr>'
+    :entries.map(([topic,d])=>{
+        const sc=Math.round(d.c/d.t*100);
+        const col=sc>=70?'var(--green)':sc>=50?'var(--gold)':'var(--red)';
+        return `<tr><td>${topic}</td><td style="color:${col}">${sc}% <span style="color:var(--ink3)">(${d.c}/${d.t})</span></td></tr>`;
+      }).join('');
+
+  // Hard cards
+  document.getElementById('hardCardList').innerHTML=S.hardCards.length===0
+    ?'<div style="font-size:11px;color:var(--ink3);padding:7px 0;font-family:var(--mono)">No hard cards yet — start drilling flashcards.</div>'
+    :S.hardCards.slice(-10).reverse().map(c=>`
+        <div class="hc-row">
+          <div class="hc-dot" style="background:${c.r==='again'?'var(--red)':'var(--gold)'}"></div>
+          <div class="hc-text">${c.q}</div>
+          <span class="hc-chip ${c.r==='again'?'ag':'hd'}">${c.r}</span>
+        </div>`).join('');
+
+  // Untouched
+  const untouched=[];
+  TOPICS.forEach(t=>t.s.forEach((s,i)=>{ if(!S.subs[t.id+'_'+i]) untouched.push({n:s,topic:t.name,c:t.c}); }));
+  document.getElementById('untouchedList').innerHTML=untouched.length===0
+    ?'<div style="font-size:11px;color:var(--green);padding:7px 0;font-family:var(--mono)">All readings touched — well done.</div>'
+    :untouched.slice(0,10).map(u=>`
+        <div class="hc-row">
+          <div class="hc-dot" style="background:${u.c}"></div>
+          <div class="hc-text">${u.n}</div>
+          <span class="hc-chip" style="background:var(--ivory2);color:var(--ink3)">${u.topic.split(' ')[0]}</span>
+        </div>`).join('')
+      +(untouched.length>10?`<div style="font-size:10.5px;color:var(--ink3);padding:6px 0;font-family:var(--mono)">...and ${untouched.length-10} more.</div>`:'');
+
+  // Distribution bars
+  const v={again:S.fs.again,hard:S.fs.hard,good:S.fs.good,easy:S.fs.easy};
+  const mx=Math.max(...Object.values(v),1);
+  [['Ag','again'],['Hd','hard'],['Gd','good'],['Ez','easy']].forEach(([k,key])=>{
+    document.getElementById('db'+k).style.height=Math.round(v[key]/mx*68)+'px';
+    document.getElementById('dv'+k).textContent=v[key];
+  });
 }
 
-function endTest(){
-  document.getElementById('practiceQ').style.display='none';
-  document.getElementById('practiceSetup').style.display='block';
-}
-
-function resetTest(){
-  document.getElementById('practiceResult').style.display='none';
-  document.getElementById('practiceSetup').style.display='block';
-}
-
-/* ══════════════ TIMER ══════════════ */
-let pomDur=25*60, pomRem=25*60, pomOn=false, pomIv=null, pomLbl='Focus · 25 minutes';
-let sessOn=false, sessIv=null, sessSec=0, sessLogs=[];
+/* ════ TIMER ════ */
+let pomDur=25*60, pomRem=25*60, pomOn=false, pomTick=null, pomLabel='Focus Block · 25 min';
+let sessOn=false, sessTick=null, sessSec=0, sessLog=[];
 
 function togglePom(){
-  if(pomOn){ clearInterval(pomIv); pomOn=false; document.getElementById('pomBtn').textContent='▶ Resume'; }
-  else {
-    pomOn=true; document.getElementById('pomBtn').textContent='⏸ Pause';
-    pomIv=setInterval(()=>{
+  if(pomOn){ clearInterval(pomTick); pomOn=false; document.getElementById('pmBtn').textContent='▶ Resume'; }
+  else{
+    pomOn=true; document.getElementById('pmBtn').textContent='⏸ Pause';
+    pomTick=setInterval(()=>{
       pomRem--;
-      renderPom();
-      if(pomRem<=0){
-        clearInterval(pomIv); pomOn=false;
-        document.getElementById('pomBtn').textContent='▶ Start';
-        document.getElementById('pomLabel').textContent='✅ Done! Take a break.';
-        addXP(10);
-      }
+      document.getElementById('pmMin').textContent=String(Math.floor(pomRem/60)).padStart(2,'0');
+      document.getElementById('pmSec').textContent=String(pomRem%60).padStart(2,'0');
+      document.getElementById('pmLabel').textContent=pomLabel;
+      if(pomRem<=0){ clearInterval(pomTick); pomOn=false; document.getElementById('pmBtn').textContent='▶ Start'; document.getElementById('pmLabel').textContent='Session complete!'; xp(10); }
     },1000);
   }
 }
-
-function renderPom(){
-  document.getElementById('pomMin').textContent=String(Math.floor(pomRem/60)).padStart(2,'0');
-  document.getElementById('pomSec').textContent=String(pomRem%60).padStart(2,'0');
-  document.getElementById('pomLabel').textContent=pomLbl;
-}
-
-function resetPom(){
-  clearInterval(pomIv); pomOn=false; pomRem=pomDur;
-  renderPom(); document.getElementById('pomBtn').textContent='▶ Start';
-}
-
-function setPom(m,l){ pomDur=m*60; pomLbl=l; resetPom(); }
+function resetPom(){ clearInterval(pomTick); pomOn=false; pomRem=pomDur; document.getElementById('pmMin').textContent=String(Math.floor(pomRem/60)).padStart(2,'0'); document.getElementById('pmSec').textContent='00'; document.getElementById('pmBtn').textContent='▶ Start'; document.getElementById('pmLabel').textContent=pomLabel; }
+function setPom(m,l){ pomDur=m*60; pomLabel=l; resetPom(); }
 
 function toggleSess(){
   if(sessOn){
-    clearInterval(sessIv); sessOn=false;
-    document.getElementById('sessBtn').textContent='▶ Continue';
+    clearInterval(sessTick); sessOn=false; document.getElementById('sBtn').textContent='▶ Continue';
     const mins=Math.floor(sessSec/60);
     if(mins>0){
-      sessLogs.push({mins,time:new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})});
-      S.studySec+=sessSec; save(); updateStats(); renderSessLog(); updateLifetime();
+      sessLog.push({mins, time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
+      S.studySec+=sessSec; save(); refreshStats(); renderSessLog(); updateLT();
     }
   } else {
-    sessOn=true; sessSec=0;
-    document.getElementById('sessBtn').textContent='⏸ Pause';
-    sessIv=setInterval(()=>{
+    sessOn=true; sessSec=0; document.getElementById('sBtn').textContent='⏸ Pause';
+    sessTick=setInterval(()=>{
       sessSec++;
       const h=Math.floor(sessSec/3600),m=Math.floor((sessSec%3600)/60),s=sessSec%60;
       document.getElementById('sH').textContent=String(h).padStart(2,'0');
@@ -1665,52 +1400,40 @@ function toggleSess(){
     },1000);
   }
 }
-
-function resetSess(){
-  clearInterval(sessIv); sessOn=false; sessSec=0;
-  ['sH','sM','sS'].forEach(id=>document.getElementById(id).textContent='00');
-  document.getElementById('sessBtn').textContent='▶ Start Session';
-}
-
+function resetSess(){ clearInterval(sessTick); sessOn=false; sessSec=0; ['sH','sM','sS'].forEach(id=>document.getElementById(id).textContent='00'); document.getElementById('sBtn').textContent='▶ Begin'; }
 function renderSessLog(){
   const sl=document.getElementById('sessLog');
-  if(!sessLogs.length){ sl.innerHTML='<div style="font-size:13px;color:var(--text3);padding:12px 0">No sessions yet.</div>'; return; }
-  sl.innerHTML=sessLogs.slice(-5).reverse().map(l=>`
-    <div class="log-item">
-      <div class="log-icon">⏱</div>
-      <div class="log-text">
-        <div class="log-name">${l.mins} min session</div>
-        <div class="log-time">${l.time}</div>
-      </div>
-      <div class="log-xp">+${l.mins>=25?10:5} XP</div>
+  if(!sessLog.length){ sl.innerHTML='<div style="font-size:11.5px;color:var(--ink3);padding:13px 15px;font-family:var(--mono)">No sessions recorded yet.</div>'; return; }
+  sl.innerHTML=sessLog.slice(-8).reverse().map(l=>`
+    <div class="sess-row">
+      <div class="sess-dot"></div>
+      <div class="sess-name">${l.mins} min focus session</div>
+      <div class="sess-time">${l.time}</div>
+      <div class="sess-xp">+${l.mins>=25?10:5} XP</div>
     </div>`).join('');
 }
-
-function updateLifetime(){
-  const total=S.studySec;
-  document.getElementById('lifeTime').textContent=Math.floor(total/3600)+'h '+Math.floor((total%3600)/60)+'m';
+function updateLT(){
+  const t=S.studySec;
+  document.getElementById('ltTime').textContent=Math.floor(t/3600)+'h '+Math.floor((t%3600)/60)+'m';
 }
 
-/* ══════════════ INIT ══════════════ */
-buildTopics();
-buildFilterList();
-buildFormulas();
+/* ════ INIT ════ */
+buildLedger();
+buildFilters();
+buildFormulary();
 buildModes();
 renderCard();
-updateLifetime();
+updateLT();
+['Again','Hard','Good','Easy'].forEach(k=>document.getElementById('r'+k).textContent=S.fs[k.toLowerCase()]);
 
-// restore flash stats
-['again','hard','good','easy'].forEach(k=>document.getElementById('st-'+k).textContent=S.fs[k]);
-
-// streak
-const today=new Date().toDateString();
-if(S.lastDate!==today){
-  const yd=new Date(Date.now()-86400000).toDateString();
-  S.streak=(S.lastDate===yd)?S.streak+1:1;
-  S.lastDate=today; save();
+// Streak
+const tod=new Date().toDateString();
+if(S.lastDate!==tod){
+  S.streak=(S.lastDate===new Date(Date.now()-86400000).toDateString())?S.streak+1:1;
+  S.lastDate=tod; save();
 }
-document.getElementById('streakVal').textContent=S.streak;
-document.getElementById('xpVal').textContent=S.xp;
+document.getElementById('hStreak').textContent=S.streak;
+document.getElementById('hXP').textContent=S.xp;
 </script>
 </body>
 </html>
