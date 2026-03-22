@@ -676,7 +676,7 @@ main { max-width: 1400px; margin: 0 auto; padding: 28px 28px 72px; }
     </div>
   </div>
 
-  <table class="ledger">
+  <table class="ledger" id="ledgerTable">
     <thead>
       <tr>
         <th style="width:38%">Topic</th>
@@ -1042,6 +1042,9 @@ document.getElementById('todayDate').textContent =
 
 function buildLedger(){
   const tbody = document.getElementById('ledgerBody');
+  const table = document.getElementById('ledgerTable');
+  // Remove old sub-group tbodys
+  table.querySelectorAll('.sub-group').forEach(el=>el.remove());
   tbody.innerHTML = '';
   TOPICS.forEach(t=>{
     const tot=t.s.length, done=t.s.filter((_,i)=>S.subs[t.id+'_'+i]==='done').length, pct=tot?Math.round(done/tot*100):0;
@@ -1062,19 +1065,19 @@ function buildLedger(){
       <td class="r"><span class="lr-pct" style="color:${t.c}">${pct}%</span></td>`;
     tr.onclick = ()=> toggleTopic(t.id);
     tbody.appendChild(tr);
-    // Sub-rows group
+    // Sub-rows — appended to TABLE directly (not nested tbody inside tbody)
     const sg = document.createElement('tbody');
     sg.className='sub-group'; sg.id='sg_'+t.id; sg.style.display='none';
     t.s.forEach((s,i)=>{
-      const k=t.id+'_'+i, done=S.subs[k]==='done';
+      const k=t.id+'_'+i, isDone=S.subs[k]==='done';
       const sr=document.createElement('tr'); sr.className='sub-tr';
-      sr.innerHTML=`<td colspan="5"><div class="sub-inner${done?' done':''}" id="si_${k}" onclick="toggleSub('${k}',event)">
-        <div class="sub-box">${done?'✓':''}</div>
+      sr.innerHTML=`<td colspan="5"><div class="sub-inner${isDone?' done':''}" id="si_${k}" onclick="toggleSub('${k}',event)">
+        <div class="sub-box">${isDone?'✓':''}</div>
         <div class="sub-lbl">${s}</div>
       </div></td>`;
       sg.appendChild(sr);
     });
-    tbody.appendChild(sg);
+    table.appendChild(sg);
   });
   refreshStats();
   buildTicker();
